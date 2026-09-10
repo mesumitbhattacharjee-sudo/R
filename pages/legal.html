@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Policies, Security & Fulfillment Guarantee | CGAPH</title>
+  <meta name="description" content="Shipping policies, 30-day reprint guarantee, terms of service, and customer data security rules." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <aside class="announcement-bar">
+    <span>Free Worldwide Express Shipping On Orders Over $75 — Code: <strong>FREESHIP</strong></span>
+  </aside>
+
+  <!-- Navbar -->
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="/index.html" class="brand-logo">
+        <span class="brand-mark">C</span>
+        <span>CGAPH</span>
+        <span class="brand-sub">STUDIO</span>
+      </a>
+
+      <nav aria-label="Primary Navigation">
+        <ul class="nav-links">
+          <li><a href="/pages/shop.html" class="nav-link">Shop Catalog</a></li>
+          <li><a href="/pages/custom-designer.html" class="nav-link">Design Studio <span class="nav-link-badge">LIVE 2.0</span></a></li>
+          <li><a href="/pages/shop.html?category=Custom+printed+T-shirts" class="nav-link">T-Shirts</a></li>
+          <li><a href="/pages/shop.html?category=Hoodies" class="nav-link">Hoodies</a></li>
+          <li><a href="/pages/about.html" class="nav-link">Brand Story</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button type="button" class="icon-btn btn-theme-toggle" aria-label="Toggle Theme">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </button>
+        <a href="/pages/cart.html" class="icon-btn" aria-label="Shopping Cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+          <span class="icon-badge cart-badge-count" style="display: none;">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" style="max-width: 860px; padding-bottom: 5rem;">
+    <header class="page-header">
+      <h1 class="page-title">Policies & Operational Security</h1>
+      <p class="page-subtitle">Transparent standards governing our bespoke manufacturing, shipping, and data integrity.</p>
+    </header>
+
+    <section id="shipping" style="margin-bottom: 3rem;">
+      <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem; color: var(--color-primary);">1. Global Fulfillment & Shipping</h2>
+      <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem;">
+        All orders are manufactured within 48 business hours of receipt. Standard shipping takes 3-5 business days domestically, and 6-10 days internationally via DHL Express or FedEx. Tracking numbers are generated immediately once the item leaves the direct print node.
+      </p>
+    </section>
+
+    <section id="returns" style="margin-bottom: 3rem;">
+      <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem; color: var(--color-primary);">2. 100% Quality Print Guarantee</h2>
+      <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem;">
+        Because every piece is printed bespoke, we cannot accept returns for buyer's remorse. However, if your garment arrives with any printing defect, misaligned graphic, physical tear, or incorrect size, we will issue an immediate complimentary reprint or full refund within 30 days of delivery.
+      </p>
+    </section>
+
+    <section id="security" style="margin-bottom: 3rem;">
+      <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem; color: var(--color-primary);">3. Cloud Security & Data Isolation</h2>
+      <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem;">
+        Customer orders, shipping addresses, and personal credentials are encrypted using Google Cloud Firestore and authenticated via Firebase Authentication. User profiles are isolated with granular Role-Based Access Control (RBAC) ensuring only the authenticated document owner or verified store administrators can access private telemetry.
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      <div>© 2026 CGAPH Studio Inc. All rights reserved.</div>
+      <div>Zero generic templates · Premium Print-on-Demand E-commerce</div>
+    </div>
+  </footer>
+
+  <script type="module">
+    import { initTheme, updateNavbarBadges, updateAuthNav } from '/js/app.js';
+    document.addEventListener('DOMContentLoaded', () => {
+      initTheme();
+      updateNavbarBadges();
+      updateAuthNav();
+    });
+  </script>
+</body>
+</html>

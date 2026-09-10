@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Shopping Bag | CGAPH</title>
+  <meta name="description" content="Review your selected heavyweight garments, custom print-on-demand designs, and applied promo coupons." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css" />
+  <style>
+    .cart-layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: var(--space-2xl);
+      padding: var(--space-xl) 0 var(--space-3xl);
+    }
+    .cart-item-card {
+      display: grid;
+      grid-template-columns: 96px 1fr auto;
+      gap: var(--space-md);
+      padding: var(--space-lg);
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-md);
+      align-items: center;
+    }
+    .cart-item-thumb {
+      width: 96px;
+      height: 110px;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+    }
+    .cart-item-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    @media (max-width: 900px) {
+      .cart-layout {
+        grid-template-columns: 1fr;
+      }
+      .cart-item-card {
+        grid-template-columns: 80px 1fr;
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <aside class="announcement-bar">
+    <span>Free Worldwide Express Shipping On Orders Over $75 — Code: <strong>FREESHIP</strong></span>
+  </aside>
+
+  <!-- Navbar -->
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="/index.html" class="brand-logo">
+        <span class="brand-mark">C</span>
+        <span>CGAPH</span>
+        <span class="brand-sub">STUDIO</span>
+      </a>
+
+      <nav aria-label="Primary Navigation">
+        <ul class="nav-links">
+          <li><a href="/pages/shop.html" class="nav-link">Shop Catalog</a></li>
+          <li><a href="/pages/custom-designer.html" class="nav-link">Design Studio <span class="nav-link-badge">LIVE 2.0</span></a></li>
+          <li><a href="/pages/shop.html?category=Custom+printed+T-shirts" class="nav-link">T-Shirts</a></li>
+          <li><a href="/pages/shop.html?category=Hoodies" class="nav-link">Hoodies</a></li>
+          <li><a href="/pages/about.html" class="nav-link">Brand Story</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button type="button" class="icon-btn btn-theme-toggle" aria-label="Toggle Theme">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </button>
+        <a href="/pages/wishlist.html" class="icon-btn" aria-label="Wishlist">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          <span class="icon-badge wishlist-badge-count" style="display: none;">0</span>
+        </a>
+        <a href="/pages/cart.html" class="icon-btn active" aria-label="Shopping Cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+          <span class="icon-badge cart-badge-count" style="display: none;">0</span>
+        </a>
+        <div class="nav-auth-container">
+          <a href="/pages/login.html" class="icon-btn" aria-label="Sign In">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </a>
+        </div>
+        <button type="button" class="icon-btn hamburger-btn" aria-label="Open Mobile Menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <h1 class="page-title">Shopping Bag</h1>
+      <p class="page-subtitle">Every piece is tailored bespoke upon order completion with zero fabric waste.</p>
+    </header>
+
+    <div class="cart-layout" id="cartMainContainer">
+      <!-- Items Column -->
+      <div>
+        <div id="cartItemsList"></div>
+
+        <!-- Empty State -->
+        <div id="cartEmptyState" style="display: none; text-align: center; padding: 4rem 1rem; background: var(--bg-card); border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+          <div style="font-size: 3rem; margin-bottom: 1rem;">🛍️</div>
+          <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 0.5rem;">Your bag is currently empty</h2>
+          <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Explore our curated drops or launch the live canvas studio to build your custom piece.</p>
+          <div style="display: flex; gap: 12px; justify-content: center;">
+            <a href="/pages/shop.html" class="btn btn-primary">Browse Catalogue</a>
+            <a href="/pages/custom-designer.html" class="btn btn-outline">Launch Design Studio</a>
+          </div>
+        </div>
+
+        <!-- Continue shopping link -->
+        <div style="margin-top: 1.5rem;">
+          <a href="/pages/shop.html" style="color: var(--text-secondary); text-decoration: none; font-size: 0.875rem; font-weight: 600;">
+            ← Continue Shopping
+          </a>
+        </div>
+      </div>
+
+      <!-- Order Summary Card -->
+      <aside class="summary-card" id="cartSummaryCard">
+        <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 1.25rem;">Order Summary</h3>
+
+        <!-- Coupon Input -->
+        <div style="margin-bottom: 1.5rem;">
+          <label class="form-label" style="font-size: 0.8125rem;">Promo Code / Coupon</label>
+          <div style="display: flex; gap: 8px;">
+            <input type="text" id="couponCodeInput" class="form-input" placeholder="e.g. ATOMIC20" style="text-transform: uppercase;" />
+            <button type="button" class="btn btn-secondary btn-sm" id="btnApplyCoupon">Apply</button>
+          </div>
+          <div id="appliedCouponTag" style="display: none; margin-top: 8px; font-size: 0.8125rem; background: var(--color-primary-subtle); color: var(--color-primary); padding: 6px 10px; border-radius: var(--radius-xs); align-items: center; justify-content: space-between;">
+            <span id="couponText">ATOMIC20 applied (20% OFF)</span>
+            <button type="button" id="btnRemoveCoupon" style="background: none; border: none; color: var(--color-primary); cursor: pointer; font-weight: 700;">✕</button>
+          </div>
+          <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 6px;">
+            Available codes: <strong>ATOMIC20</strong> (20% off), <strong>FREESHIP</strong>
+          </div>
+        </div>
+
+        <!-- Calculations Breakdown -->
+        <div style="border-top: 1px solid var(--border-subtle); padding-top: 1rem;">
+          <div class="summary-line">
+            <span>Subtotal (<span id="summaryItemCount">0</span> items)</span>
+            <strong id="summarySubtotal">$0.00</strong>
+          </div>
+          <div class="summary-line" id="summaryDiscountRow" style="display: none; color: var(--color-success);">
+            <span>Coupon Discount</span>
+            <strong id="summaryDiscount">-$0.00</strong>
+          </div>
+          <div class="summary-line">
+            <span>Estimated Sales Tax (8%)</span>
+            <span id="summaryTax">$0.00</span>
+          </div>
+          <div class="summary-line">
+            <span>Fulfillment Shipping</span>
+            <span id="summaryShipping">$0.00</span>
+          </div>
+
+          <div class="summary-total">
+            <span>Total</span>
+            <span id="summaryTotal">$0.00</span>
+          </div>
+        </div>
+
+        <!-- Primary Checkout CTA -->
+        <a href="/pages/checkout.html" class="btn btn-primary btn-lg btn-full" id="btnProceedCheckout" style="margin-top: 1.5rem;">
+          Proceed to Checkout 🔒
+        </a>
+
+        <!-- Trust Badges -->
+        <div style="margin-top: 1.25rem; display: flex; flex-direction: column; gap: 8px; font-size: 0.75rem; color: var(--text-muted);">
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <span>🛡️</span> 256-Bit SSL Encrypted Stripe Checkout
+          </div>
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <span>✨</span> 100% Quality Print Guarantee or Free Reprint
+          </div>
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <span>📦</span> Tracked Carbon-Neutral Global Logistics
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      <div>© 2026 CGAPH Studio Inc. All rights reserved.</div>
+      <div>Zero generic templates · Premium Print-on-Demand E-commerce</div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script type="module">
+    import { initTheme, updateNavbarBadges, updateAuthNav, setupMobileNav, showToast } from '/js/app.js';
+    import { getCart, updateCartQuantity, removeFromCart, getCartTotals, applyCoupon, removeCoupon, getActiveCoupon } from '/js/cart.js';
+
+    function renderCart() {
+      const cart = getCart();
+      const listEl = document.getElementById('cartItemsList');
+      const emptyEl = document.getElementById('cartEmptyState');
+      const summaryCard = document.getElementById('cartSummaryCard');
+      const totals = getCartTotals();
+
+      if (cart.length === 0) {
+        listEl.innerHTML = '';
+        emptyEl.style.display = 'block';
+        summaryCard.style.opacity = '0.4';
+        summaryCard.style.pointerEvents = 'none';
+        return;
+      }
+
+      emptyEl.style.display = 'none';
+      summaryCard.style.opacity = '1';
+      summaryCard.style.pointerEvents = 'auto';
+      listEl.innerHTML = '';
+
+      cart.forEach(item => {
+        const itemEl = document.createElement('div');
+        itemEl.className = 'cart-item-card';
+        itemEl.innerHTML = `
+          <div class="cart-item-thumb">
+            <img src="${item.image}" alt="${item.name}">
+          </div>
+          <div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <strong style="color: var(--text-primary); font-size: 1rem;">${item.name}</strong>
+              ${item.customDesign ? '<span class="badge badge-primary">Custom Bespoke</span>' : ''}
+            </div>
+            <div style="font-size: 0.8125rem; color: var(--text-muted); margin-top: 4px;">
+              Size: <strong>${item.size}</strong> · Color: <strong>${item.colorName || 'Default'}</strong>
+            </div>
+            <div style="font-size: 0.9375rem; font-weight: 700; color: var(--color-primary); margin-top: 6px;">
+              $${item.price.toFixed(2)} each
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 10px;">
+            <div class="quantity-control" style="width: 110px;">
+              <button type="button" class="qty-btn btn-item-minus" data-id="${item.cartItemId}">-</button>
+              <input type="text" class="qty-input" value="${item.quantity}" readonly />
+              <button type="button" class="qty-btn btn-item-plus" data-id="${item.cartItemId}">+</button>
+            </div>
+            <div style="font-weight: 800; font-size: 1rem;">
+              $${(item.price * item.quantity).toFixed(2)}
+            </div>
+            <button type="button" class="btn-remove-item" data-id="${item.cartItemId}" style="background: none; border: none; font-size: 0.75rem; color: var(--color-danger); cursor: pointer;">
+              Remove
+            </button>
+          </div>
+        `;
+        listEl.appendChild(itemEl);
+      });
+
+      // Quantity buttons
+      listEl.querySelectorAll('.btn-item-minus').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const item = cart.find(i => i.cartItemId === btn.dataset.id);
+          if (item) {
+            updateCartQuantity(item.cartItemId, item.quantity - 1);
+            renderCart();
+          }
+        });
+      });
+
+      listEl.querySelectorAll('.btn-item-plus').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const item = cart.find(i => i.cartItemId === btn.dataset.id);
+          if (item) {
+            updateCartQuantity(item.cartItemId, item.quantity + 1);
+            renderCart();
+          }
+        });
+      });
+
+      // Remove button
+      listEl.querySelectorAll('.btn-remove-item').forEach(btn => {
+        btn.addEventListener('click', () => {
+          removeFromCart(btn.dataset.id);
+          renderCart();
+          showToast('Item removed from bag', 'info');
+        });
+      });
+
+      // Update Summary Totals
+      document.getElementById('summaryItemCount').textContent = totals.itemCount;
+      document.getElementById('summarySubtotal').textContent = `$${totals.subtotal.toFixed(2)}`;
+      document.getElementById('summaryTax').textContent = `$${totals.tax.toFixed(2)}`;
+      document.getElementById('summaryShipping').textContent = totals.shipping === 0 ? 'FREE' : `$${totals.shipping.toFixed(2)}`;
+      document.getElementById('summaryTotal').textContent = `$${totals.total.toFixed(2)}`;
+
+      const discountRow = document.getElementById('summaryDiscountRow');
+      const discountVal = document.getElementById('summaryDiscount');
+      if (totals.discount > 0) {
+        discountRow.style.display = 'flex';
+        discountVal.textContent = `-$${totals.discount.toFixed(2)}`;
+      } else {
+        discountRow.style.display = 'none';
+      }
+
+      // Coupon tag display
+      const activeCoupon = getActiveCoupon();
+      const couponTag = document.getElementById('appliedCouponTag');
+      if (activeCoupon) {
+        couponTag.style.display = 'flex';
+        document.getElementById('couponText').textContent = `${activeCoupon.code} applied (${activeCoupon.description || 'Active'})`;
+      } else {
+        couponTag.style.display = 'none';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCart();
+
+      // Apply Coupon
+      document.getElementById('btnApplyCoupon')?.addEventListener('click', () => {
+        const input = document.getElementById('couponCodeInput');
+        const res = applyCoupon(input.value);
+        if (res.success) {
+          showToast(`Coupon applied! ${res.coupon.description}`, 'success');
+          input.value = '';
+          renderCart();
+        } else {
+          showToast(res.message, 'warning');
+        }
+      });
+
+      // Remove Coupon
+      document.getElementById('btnRemoveCoupon')?.addEventListener('click', () => {
+        removeCoupon();
+        showToast('Coupon removed', 'info');
+        renderCart();
+      });
+
+      window.addEventListener('cart:updated', renderCart);
+    });
+  </script>
+</body>
+</html>

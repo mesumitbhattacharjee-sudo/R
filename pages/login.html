@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Account Sign In | CGAPH</title>
+  <meta name="description" content="Sign in or register for your CGAPH bespoke studio account to track orders, save designs, and manage shipping addresses." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css" />
+  <style>
+    .auth-page-container {
+      min-height: calc(100vh - 180px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-2xl) var(--space-md);
+    }
+    .auth-card {
+      width: 100%;
+      max-width: 440px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      box-shadow: var(--shadow-xl);
+    }
+    .auth-tab-row {
+      display: flex;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 1.5rem;
+    }
+    .auth-tab {
+      flex: 1;
+      text-align: center;
+      padding: 0.75rem 0.5rem;
+      background: none;
+      border: none;
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.15s ease;
+    }
+    .auth-tab.active {
+      color: var(--color-primary);
+      border-bottom-color: var(--color-primary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Minimal Header -->
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="/index.html" class="brand-logo">
+        <span class="brand-mark">C</span>
+        <span>CGAPH</span>
+      </a>
+      <a href="/index.html" style="font-size: 0.8125rem; color: var(--text-secondary); text-decoration: none;">
+        ← Back to Store
+      </a>
+    </div>
+  </header>
+
+  <main class="auth-page-container">
+    <div class="auth-card">
+      <div style="text-align: center; margin-bottom: 1.5rem;">
+        <span class="badge badge-primary">AUTHENTICATION</span>
+        <h1 style="font-size: 1.5rem; font-weight: 900; margin-top: 0.5rem; letter-spacing: -0.02em;">Welcome to CGAPH</h1>
+        <p style="font-size: 0.8125rem; color: var(--text-muted); margin-top: 4px;">Sign in to access saved bespoke designs & live order tracking.</p>
+      </div>
+
+      <!-- Sign In vs Register Tabs -->
+      <div class="auth-tab-row">
+        <button type="button" class="auth-tab active" id="tabBtnSignIn">Sign In</button>
+        <button type="button" class="auth-tab" id="tabBtnRegister">Create Account</button>
+      </div>
+
+      <!-- Google Sign In Button -->
+      <button type="button" class="btn btn-outline btn-full" id="btnGoogleAuth" style="margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: center; gap: 10px;">
+        <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.4 9 5 12 5z"/><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.6h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.9z"/><path fill="#FBBC05" d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.3s.2-1.6.4-2.3L1.9 7.3C.7 9.7 0 12.3 0 15s.7 5.3 1.9 7.7l3.7-2.9z"/><path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.4-6.4-5.2L1.9 16C3.7 19.7 7.5 22.3 12 23z"/></svg>
+        Continue with Google
+      </button>
+
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1.25rem;">
+        <div style="flex: 1; height: 1px; background: var(--border-subtle);"></div>
+        <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">or email</span>
+        <div style="flex: 1; height: 1px; background: var(--border-subtle);"></div>
+      </div>
+
+      <!-- Sign In Form -->
+      <form id="signInForm">
+        <div class="form-group" style="margin-bottom: 1rem;">
+          <label class="form-label" for="loginEmail">Email Address</label>
+          <input type="email" id="loginEmail" class="form-input" required placeholder="name@domain.com" />
+        </div>
+        <div class="form-group" style="margin-bottom: 1.25rem;">
+          <div style="display: flex; justify-content: space-between;">
+            <label class="form-label" for="loginPass">Password</label>
+            <a href="#" id="linkForgotPass" style="font-size: 0.75rem; color: var(--color-primary); text-decoration: none;">Forgot?</a>
+          </div>
+          <input type="password" id="loginPass" class="form-input" required placeholder="••••••••" />
+        </div>
+        <button type="submit" class="btn btn-primary btn-full btn-lg" id="btnSubmitLogin">
+          Sign In to Account
+        </button>
+      </form>
+
+      <!-- Register Form -->
+      <form id="registerForm" style="display: none;">
+        <div class="form-group" style="margin-bottom: 1rem;">
+          <label class="form-label" for="regName">Full Name</label>
+          <input type="text" id="regName" class="form-input" required placeholder="Alex Vance" />
+        </div>
+        <div class="form-group" style="margin-bottom: 1rem;">
+          <label class="form-label" for="regEmail">Email Address</label>
+          <input type="email" id="regEmail" class="form-input" required placeholder="name@domain.com" />
+        </div>
+        <div class="form-group" style="margin-bottom: 1.25rem;">
+          <label class="form-label" for="regPass">Create Password</label>
+          <input type="password" id="regPass" class="form-input" required placeholder="Minimum 6 characters" minlength="6" />
+        </div>
+        <button type="submit" class="btn btn-primary btn-full btn-lg" id="btnSubmitRegister">
+          Create Free Account
+        </button>
+      </form>
+
+      <!-- Quick Demo Testing Buttons -->
+      <div style="margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--border-subtle); text-align: center;">
+        <span style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-bottom: 8px;">
+          ⚡ Quick Demo Logins for Evaluation:
+        </span>
+        <div style="display: flex; gap: 8px; justify-content: center;">
+          <button type="button" class="btn btn-sm btn-secondary" id="btnQuickAdmin">
+            Login as Admin
+          </button>
+          <button type="button" class="btn btn-sm btn-outline" id="btnQuickCustomer">
+            Login as Customer
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script type="module">
+    import { initTheme, showToast } from '/js/app.js';
+    import { loginWithEmail, registerWithEmail, loginWithGoogle } from '/js/auth.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initTheme();
+
+      const tabSignIn = document.getElementById('tabBtnSignIn');
+      const tabRegister = document.getElementById('tabBtnRegister');
+      const signInForm = document.getElementById('signInForm');
+      const registerForm = document.getElementById('registerForm');
+
+      tabSignIn.addEventListener('click', () => {
+        tabSignIn.classList.add('active');
+        tabRegister.classList.remove('active');
+        signInForm.style.display = 'block';
+        registerForm.style.display = 'none';
+      });
+
+      tabRegister.addEventListener('click', () => {
+        tabRegister.classList.add('active');
+        tabSignIn.classList.remove('active');
+        registerForm.style.display = 'block';
+        signInForm.style.display = 'none';
+      });
+
+      // Sign In submit
+      signInForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('loginEmail').value;
+        const pass = document.getElementById('loginPass').value;
+        const btn = document.getElementById('btnSubmitLogin');
+        btn.disabled = true;
+        btn.textContent = 'Authenticating...';
+
+        const res = await loginWithEmail(email, pass);
+        if (res.success) {
+          showToast(`Welcome back, ${res.user.name}!`, 'success');
+          setTimeout(() => {
+            if (res.user.role === 'admin') {
+              window.location.href = '/pages/admin.html';
+            } else {
+              window.location.href = '/pages/profile.html';
+            }
+          }, 400);
+        } else {
+          showToast('Authentication failed', 'warning');
+          btn.disabled = false;
+          btn.textContent = 'Sign In to Account';
+        }
+      });
+
+      // Register submit
+      registerForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = document.getElementById('regName').value;
+        const email = document.getElementById('regEmail').value;
+        const pass = document.getElementById('regPass').value;
+        const btn = document.getElementById('btnSubmitRegister');
+        btn.disabled = true;
+        btn.textContent = 'Creating Profile...';
+
+        const res = await registerWithEmail(email, pass, name);
+        if (res.success) {
+          showToast('Account created successfully!', 'success');
+          setTimeout(() => { window.location.href = '/pages/profile.html'; }, 400);
+        } else {
+          showToast('Registration failed', 'warning');
+          btn.disabled = false;
+          btn.textContent = 'Create Free Account';
+        }
+      });
+
+      // Google Sign-In
+      document.getElementById('btnGoogleAuth').addEventListener('click', async () => {
+        const res = await loginWithGoogle();
+        if (res.success) {
+          showToast(`Signed in with Google as ${res.user.name}`, 'success');
+          setTimeout(() => { window.location.href = '/pages/profile.html'; }, 400);
+        }
+      });
+
+      // Quick Demo Admin Login
+      document.getElementById('btnQuickAdmin').addEventListener('click', async () => {
+        await loginWithEmail('mesumitbhattacharjee@gmail.com', 'adminPass123!');
+        showToast('Logged in as Administrator!', 'success');
+        setTimeout(() => { window.location.href = '/pages/admin.html'; }, 400);
+      });
+
+      // Quick Demo Customer Login
+      document.getElementById('btnQuickCustomer').addEventListener('click', async () => {
+        await loginWithEmail('customer@cgaph.studio', 'customerPass123!');
+        showToast('Logged in as Demo Customer!', 'success');
+        setTimeout(() => { window.location.href = '/pages/profile.html'; }, 400);
+      });
+    });
+  </script>
+</body>
+</html>

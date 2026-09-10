@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SaaS Admin Portal | CGAPH Studio</title>
+  <meta name="description" content="CGAPH Enterprise Print-on-Demand Management Console. Manage catalog, orders, logistics, and inventory." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css" />
+  <style>
+    .admin-container {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      min-height: 100vh;
+    }
+    .admin-sidebar {
+      background: var(--bg-card);
+      border-right: 1px solid var(--border-subtle);
+      padding: 1.5rem 1rem;
+      display: flex;
+      flex-direction: column;
+    }
+    .admin-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0.75rem 1rem;
+      color: var(--text-secondary);
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      margin-bottom: 4px;
+      transition: all 0.15s ease;
+    }
+    .admin-nav-item.active, .admin-nav-item:hover {
+      background: var(--bg-surface-elevated);
+      color: var(--text-primary);
+    }
+    .admin-nav-item.active {
+      color: var(--color-primary);
+      font-weight: 700;
+    }
+    .admin-main {
+      padding: 2rem;
+      background: var(--bg-base);
+      overflow-y: auto;
+    }
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+    .kpi-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+    }
+    .kpi-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .kpi-val {
+      font-size: 1.75rem;
+      font-weight: 900;
+      color: var(--text-primary);
+    }
+    @media (max-width: 900px) {
+      .admin-container {
+        grid-template-columns: 1fr;
+      }
+      .admin-sidebar {
+        border-right: none;
+        border-bottom: 1px solid var(--border-subtle);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="admin-container">
+    <!-- Admin Sidebar -->
+    <aside class="admin-sidebar">
+      <div style="margin-bottom: 2rem;">
+        <a href="/index.html" class="brand-logo">
+          <span class="brand-mark">C</span>
+          <span>CGAPH</span>
+          <span class="brand-sub" style="background: var(--color-primary); color: #fff; padding: 2px 6px; border-radius: 4px;">SaaS OPS</span>
+        </a>
+      </div>
+
+      <nav style="flex: 1;">
+        <div class="admin-nav-item active" data-tab="tabOverview">
+          <span>📊</span> Overview & KPIs
+        </div>
+        <div class="admin-nav-item" data-tab="tabProducts">
+          <span>👕</span> Product Inventory
+        </div>
+        <div class="admin-nav-item" data-tab="tabOrders">
+          <span>📦</span> Orders & Shipments
+        </div>
+        <div class="admin-nav-item" data-tab="tabCoupons">
+          <span>🏷️</span> Coupons & Promos
+        </div>
+        <div class="admin-nav-item" data-tab="tabFirestore">
+          <span>🔥</span> Cloud Sync
+        </div>
+      </nav>
+
+      <div style="border-top: 1px solid var(--border-subtle); padding-top: 1rem;">
+        <a href="/index.html" class="admin-nav-item" style="font-size: 0.8125rem;">
+          <span>←</span> Back to Public Store
+        </a>
+      </div>
+    </aside>
+
+    <!-- Admin Main Workstation -->
+    <main class="admin-main">
+      <!-- Top Bar -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <span class="badge badge-primary">COMMAND CENTER</span>
+          <h1 style="font-size: 1.75rem; font-weight: 900; letter-spacing: -0.02em; margin-top: 0.25rem;" id="adminPageTitle">
+            Operations & Analytics
+          </h1>
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <button type="button" class="btn btn-secondary btn-sm" id="btnSeedFirestore">
+            🔥 Sync Catalog to Firestore
+          </button>
+          <button type="button" class="btn btn-primary btn-sm" id="btnNewProduct">
+            + New Product
+          </button>
+        </div>
+      </div>
+
+      <!-- Tab: Overview -->
+      <div id="tabOverview" class="admin-content-section">
+        <!-- Metric Cards -->
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-title">Gross Revenue</div>
+            <div class="kpi-val" id="kpiTotalRevenue">$342.00</div>
+            <div style="font-size: 0.75rem; color: var(--color-success); margin-top: 4px;">↑ 24.8% vs last month</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Total Orders Fulfilled</div>
+            <div class="kpi-val" id="kpiTotalOrders">3</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">100% on-time 48h dispatch</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Average Order Value</div>
+            <div class="kpi-val" id="kpiAOV">$114.00</div>
+            <div style="font-size: 0.75rem; color: var(--color-success); margin-top: 4px;">Premium heavyweight mix</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Active Catalog Items</div>
+            <div class="kpi-val" id="kpiActiveProducts">12</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Zero physical stock waste</div>
+          </div>
+        </div>
+
+        <!-- Recent Activity Section -->
+        <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.5rem;">
+          <h3 style="font-size: 1.125rem; font-weight: 800; margin-bottom: 1rem;">Recent Fulfillment Node Activity</h3>
+          <p style="font-size: 0.8125rem; color: var(--text-secondary); line-height: 1.6;">
+            • Automated print dispatch connected to Tokyo & Los Angeles direct DTG nodes.<br/>
+            • Japanese discharge ink levels: <strong>Nominal (94%)</strong>.<br/>
+            • Cloud Firestore security rules active & verified for customer data isolation.
+          </p>
+        </div>
+      </div>
+
+      <!-- Tab: Products Table -->
+      <div id="tabProducts" class="admin-content-section" style="display: none;">
+        <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); overflow-x: auto;">
+          <table class="table" style="margin: 0;">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Category</th>
+                <th>Unit Price</th>
+                <th>Stock</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="adminProductsTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tab: Orders Table -->
+      <div id="tabOrders" class="admin-content-section" style="display: none;">
+        <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); overflow-x: auto;">
+          <table class="table" style="margin: 0;">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Date</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Tracking #</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="adminOrdersTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tab: Coupons -->
+      <div id="tabCoupons" class="admin-content-section" style="display: none;">
+        <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.5rem;">
+          <h3 style="font-size: 1.125rem; font-weight: 800; margin-bottom: 1rem;">Active Store Promo Codes</h3>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem;">
+            <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 1rem;">
+              <div style="display: flex; justify-content: space-between;">
+                <strong style="font-family: var(--font-mono); color: var(--color-primary); font-size: 1.125rem;">ATOMIC20</strong>
+                <span class="badge badge-success">ACTIVE</span>
+              </div>
+              <p style="font-size: 0.8125rem; color: var(--text-secondary); margin-top: 0.5rem;">20% discount on Signature Shadow Collection</p>
+            </div>
+            <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 1rem;">
+              <div style="display: flex; justify-content: space-between;">
+                <strong style="font-family: var(--font-mono); color: var(--color-primary); font-size: 1.125rem;">CGAPH10</strong>
+                <span class="badge badge-success">ACTIVE</span>
+              </div>
+              <p style="font-size: 0.8125rem; color: var(--text-secondary); margin-top: 0.5rem;">10% storewide introductory discount</p>
+            </div>
+            <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 1rem;">
+              <div style="display: flex; justify-content: space-between;">
+                <strong style="font-family: var(--font-mono); color: var(--color-primary); font-size: 1.125rem;">FREESHIP</strong>
+                <span class="badge badge-success">ACTIVE</span>
+              </div>
+              <p style="font-size: 0.8125rem; color: var(--text-secondary); margin-top: 0.5rem;">Free worldwide express courier delivery</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab: Firestore Status -->
+      <div id="tabFirestore" class="admin-content-section" style="display: none;">
+        <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.5rem; max-width: 680px;">
+          <h3 style="font-size: 1.125rem; font-weight: 800; margin-bottom: 0.75rem;">Cloud Persistence & Storage Layer</h3>
+          <p style="font-size: 0.875rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.25rem;">
+            CGAPH uses Google Cloud Firestore for high-availability document storage. Catalogs, orders, customer profiles, and custom print vectors are persisted with strict Role-Based Access Control (RBAC).
+          </p>
+          <div style="background: var(--bg-surface); padding: 1rem; border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 0.8125rem; margin-bottom: 1.25rem;">
+            • Firestore DB: Ready<br/>
+            • Auth Provider: Firebase Email/Pass + Google OAuth<br/>
+            • Active Ruleset: firestore.rules deployed
+          </div>
+          <button type="button" class="btn btn-primary" id="btnSyncFirestoreExplicit">
+            Sync Entire Catalog to Cloud
+          </button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Product Modal (Create / Edit) -->
+  <div id="productModal" class="modal-backdrop">
+    <div class="modal-card" style="max-width: 580px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+        <h3 style="font-size: 1.25rem; font-weight: 800;" id="productModalTitle">Product Details</h3>
+        <button type="button" class="icon-btn" id="closeProductModal">✕</button>
+      </div>
+
+      <form id="productForm">
+        <input type="hidden" id="modalProductId" />
+        <div class="form-grid">
+          <div class="form-group form-col-12">
+            <label class="form-label" for="prodNameInput">Product Name</label>
+            <input type="text" id="prodNameInput" class="form-input" required placeholder="Heavyweight Boxy Tee" />
+          </div>
+          <div class="form-group form-col-6">
+            <label class="form-label" for="prodCategorySelect">Category</label>
+            <select id="prodCategorySelect" class="form-select">
+              <option value="Custom printed T-shirts">Custom printed T-shirts</option>
+              <option value="Oversized T-shirts">Oversized T-shirts</option>
+              <option value="Hoodies">Hoodies</option>
+              <option value="Sweatshirts">Sweatshirts</option>
+              <option value="Caps">Caps</option>
+              <option value="Tote bags">Tote bags</option>
+              <option value="Backpacks">Backpacks</option>
+              <option value="Mugs">Mugs</option>
+              <option value="Phone cases">Phone cases</option>
+              <option value="Posters">Posters</option>
+              <option value="Stickers">Stickers</option>
+              <option value="Custom accessories">Custom accessories</option>
+            </select>
+          </div>
+          <div class="form-group form-col-3">
+            <label class="form-label" for="prodPriceInput">Price ($)</label>
+            <input type="number" id="prodPriceInput" class="form-input" step="0.01" required value="38.00" />
+          </div>
+          <div class="form-group form-col-3">
+            <label class="form-label" for="prodStockInput">Stock</label>
+            <input type="number" id="prodStockInput" class="form-input" required value="50" />
+          </div>
+          <div class="form-group form-col-12">
+            <label class="form-label" for="prodImageInput">Image URL</label>
+            <input type="url" id="prodImageInput" class="form-input" required placeholder="https://images.unsplash.com/..." />
+          </div>
+          <div class="form-group form-col-12">
+            <label class="form-label" for="prodDescInput">Product Description</label>
+            <textarea id="prodDescInput" class="form-textarea" rows="3" placeholder="Enter garment specifications..."></textarea>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 1.5rem;">
+          <button type="button" class="btn btn-outline" id="cancelProductModal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Product</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script type="module">
+    import { initTheme, showToast } from '/js/app.js';
+    import { AdminDashboard } from '/js/admin.js';
+    import { getCurrentUser } from '/js/auth.js';
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      initTheme();
+      const dashboard = new AdminDashboard();
+      await dashboard.init();
+
+      // Navigation tabs
+      document.querySelectorAll('.admin-nav-item[data-tab]').forEach(item => {
+        item.addEventListener('click', () => {
+          document.querySelectorAll('.admin-nav-item[data-tab]').forEach(i => i.classList.remove('active'));
+          document.querySelectorAll('.admin-content-section').forEach(s => s.style.display = 'none');
+          item.classList.add('active');
+          const tabId = item.dataset.tab;
+          const target = document.getElementById(tabId);
+          if (target) target.style.display = 'block';
+
+          // Update page title
+          const titles = {
+            tabOverview: 'Operations & Analytics',
+            tabProducts: 'Inventory & Product Catalog',
+            tabOrders: 'Order Fulfillment & Logistics',
+            tabCoupons: 'Promotions & Coupons',
+            tabFirestore: 'Cloud Infrastructure'
+          };
+          document.getElementById('adminPageTitle').textContent = titles[tabId] || 'Dashboard';
+        });
+      });
+
+      // Explicit sync button
+      document.getElementById('btnSyncFirestoreExplicit')?.addEventListener('click', () => {
+        document.getElementById('btnSeedFirestore')?.click();
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Saved Wishlist | CGAPH</title>
+  <meta name="description" content="Review your curated wishlist of CGAPH heavyweight streetwear and bespoke print designs." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <aside class="announcement-bar">
+    <span>Free Worldwide Express Shipping On Orders Over $75 — Code: <strong>FREESHIP</strong></span>
+  </aside>
+
+  <!-- Navbar -->
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="/index.html" class="brand-logo">
+        <span class="brand-mark">C</span>
+        <span>CGAPH</span>
+        <span class="brand-sub">STUDIO</span>
+      </a>
+
+      <nav aria-label="Primary Navigation">
+        <ul class="nav-links">
+          <li><a href="/pages/shop.html" class="nav-link">Shop Catalog</a></li>
+          <li><a href="/pages/custom-designer.html" class="nav-link">Design Studio <span class="nav-link-badge">LIVE 2.0</span></a></li>
+          <li><a href="/pages/shop.html?category=Custom+printed+T-shirts" class="nav-link">T-Shirts</a></li>
+          <li><a href="/pages/shop.html?category=Hoodies" class="nav-link">Hoodies</a></li>
+          <li><a href="/pages/about.html" class="nav-link">Brand Story</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button type="button" class="icon-btn btn-theme-toggle" aria-label="Toggle Theme">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </button>
+        <a href="/pages/wishlist.html" class="icon-btn active" aria-label="Wishlist">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          <span class="icon-badge wishlist-badge-count" style="display: none;">0</span>
+        </a>
+        <a href="/pages/cart.html" class="icon-btn" aria-label="Shopping Cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+          <span class="icon-badge cart-badge-count" style="display: none;">0</span>
+        </a>
+        <div class="nav-auth-container">
+          <a href="/pages/login.html" class="icon-btn" aria-label="Sign In">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </a>
+        </div>
+        <button type="button" class="icon-btn hamburger-btn" aria-label="Open Mobile Menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" style="padding-bottom: 4rem;">
+    <header class="page-header">
+      <h1 class="page-title">Curated Wishlist</h1>
+      <p class="page-subtitle">Your saved designs and favorites saved across sessions.</p>
+    </header>
+
+    <div class="product-grid" id="wishlistGrid"></div>
+
+    <div id="wishlistEmpty" style="display: none; text-align: center; padding: 4rem 1rem; background: var(--bg-card); border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+      <div style="font-size: 3rem; margin-bottom: 1rem;">🤍</div>
+      <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 0.5rem;">Your wishlist is empty</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Explore the catalog and click the heart icon to curate your personal drop.</p>
+      <a href="/pages/shop.html" class="btn btn-primary">Browse Catalogue</a>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      <div>© 2026 CGAPH Studio Inc. All rights reserved.</div>
+      <div>Zero generic templates · Premium Print-on-Demand E-commerce</div>
+    </div>
+  </footer>
+
+  <script type="module">
+    import { initTheme, updateNavbarBadges, updateAuthNav, setupMobileNav, showToast } from '/js/app.js';
+    import { getWishlist, toggleWishlist, addToCart } from '/js/cart.js';
+    import { getProducts } from '/js/products.js';
+
+    async function renderWishlist() {
+      const wishlistIds = getWishlist();
+      const allProducts = await getProducts();
+      const grid = document.getElementById('wishlistGrid');
+      const empty = document.getElementById('wishlistEmpty');
+
+      const saved = allProducts.filter(p => wishlistIds.includes(p.id));
+
+      if (saved.length === 0) {
+        grid.innerHTML = '';
+        empty.style.display = 'block';
+        return;
+      }
+
+      empty.style.display = 'none';
+      grid.innerHTML = '';
+
+      saved.forEach(prod => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+          <div class="product-card-media">
+            <button type="button" class="product-wishlist-btn active" data-id="${prod.id}">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+            </button>
+            <a href="/pages/product.html?id=${prod.id}">
+              <img src="${prod.images[0]}" alt="${prod.name}" class="product-card-img">
+            </a>
+          </div>
+          <div class="product-card-content">
+            <span class="product-category">${prod.category}</span>
+            <a href="/pages/product.html?id=${prod.id}" class="product-title">${prod.name}</a>
+            <div class="product-meta">
+              <span class="product-price">$${prod.price.toFixed(2)}</span>
+            </div>
+            <div class="product-card-actions">
+              <button class="btn btn-primary btn-sm btn-full btn-move-cart" data-id="${prod.id}">
+                Move to Bag 🛒
+              </button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      // Move to Cart
+      grid.querySelectorAll('.btn-move-cart').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const prod = allProducts.find(p => p.id === btn.dataset.id);
+          if (prod) {
+            addToCart(prod, prod.sizes[0] || 'M', prod.colors[0] || '#0B0B0E', prod.colorNames ? prod.colorNames[0] : 'Black', 1);
+            toggleWishlist(prod.id);
+            renderWishlist();
+            showToast(`Moved ${prod.name} to Bag!`, 'success');
+          }
+        });
+      });
+
+      // Remove from wishlist
+      grid.querySelectorAll('.product-wishlist-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          toggleWishlist(btn.dataset.id);
+          renderWishlist();
+          showToast('Removed from Wishlist', 'info');
+        });
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initTheme();
+      updateNavbarBadges();
+      updateAuthNav();
+      setupMobileNav();
+      renderWishlist();
+      window.addEventListener('wishlist:updated', renderWishlist);
+    });
+  </script>
+</body>
+</html>

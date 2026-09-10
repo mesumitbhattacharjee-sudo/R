@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secure Checkout | CGAPH</title>
+  <meta name="description" content="Complete your purchase with encrypted Stripe checkout, express global fulfillment, and carbon-neutral logistics." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css" />
+  <style>
+    .checkout-grid {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: var(--space-2xl);
+      padding: var(--space-xl) 0 var(--space-3xl);
+    }
+    .checkout-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin-bottom: var(--space-lg);
+    }
+    .checkout-section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1.25rem;
+    }
+    .step-badge {
+      width: 26px;
+      height: 26px;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .shipping-method-option {
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      margin-bottom: 0.75rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-surface);
+      transition: all 0.15s ease;
+    }
+    .shipping-method-option.selected {
+      border-color: var(--color-primary);
+      background: var(--color-primary-subtle);
+    }
+    @media (max-width: 900px) {
+      .checkout-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Minimal Checkout Navbar -->
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="/index.html" class="brand-logo">
+        <span class="brand-mark">C</span>
+        <span>CGAPH</span>
+        <span class="brand-sub">CHECKOUT</span>
+      </a>
+      <div style="display: flex; align-items: center; gap: 1rem; font-size: 0.8125rem; color: var(--text-muted);">
+        <span>🔒 256-Bit SSL Encrypted</span>
+        <a href="/pages/cart.html" style="color: var(--color-primary); text-decoration: none; font-weight: 600;">Return to Bag</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="checkout-grid" id="checkoutMainContainer">
+      <!-- Form Flow Column -->
+      <div>
+        <form id="checkoutForm">
+          <!-- Step 1: Contact Information -->
+          <div class="checkout-section">
+            <div class="checkout-section-header">
+              <span class="step-badge">1</span>
+              <h3 style="font-size: 1.125rem; font-weight: 800;">Contact Information</h3>
+            </div>
+            <div class="form-grid">
+              <div class="form-group form-col-12">
+                <label class="form-label" for="custEmail">Email Address (For Order Tracking)</label>
+                <input type="email" id="custEmail" class="form-input" required placeholder="name@domain.com" />
+              </div>
+              <div class="form-group form-col-12">
+                <label class="form-label" for="custPhone">Mobile Number (For Delivery SMS)</label>
+                <input type="tel" id="custPhone" class="form-input" required placeholder="+1 (555) 000-0000" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2: Shipping Address -->
+          <div class="checkout-section">
+            <div class="checkout-section-header">
+              <span class="step-badge">2</span>
+              <h3 style="font-size: 1.125rem; font-weight: 800;">Shipping Destination</h3>
+            </div>
+            <div class="form-grid">
+              <div class="form-group form-col-6">
+                <label class="form-label" for="custFirstName">First Name</label>
+                <input type="text" id="custFirstName" class="form-input" required placeholder="Alex" />
+              </div>
+              <div class="form-group form-col-6">
+                <label class="form-label" for="custLastName">Last Name</label>
+                <input type="text" id="custLastName" class="form-input" required placeholder="Vance" />
+              </div>
+              <div class="form-group form-col-12">
+                <label class="form-label" for="custAddress">Street Address</label>
+                <input type="text" id="custAddress" class="form-input" required placeholder="1248 Neo Boulevard, Apt 4B" />
+              </div>
+              <div class="form-group form-col-6">
+                <label class="form-label" for="custCity">City</label>
+                <input type="text" id="custCity" class="form-input" required placeholder="Metropolis" />
+              </div>
+              <div class="form-group form-col-3">
+                <label class="form-label" for="custState">State / Region</label>
+                <input type="text" id="custState" class="form-input" required placeholder="CA" />
+              </div>
+              <div class="form-group form-col-3">
+                <label class="form-label" for="custZip">Zip / Postal</label>
+                <input type="text" id="custZip" class="form-input" required placeholder="90210" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3: Shipping Method -->
+          <div class="checkout-section">
+            <div class="checkout-section-header">
+              <span class="step-badge">3</span>
+              <h3 style="font-size: 1.125rem; font-weight: 800;">Shipping Logistics</h3>
+            </div>
+            <div>
+              <div class="shipping-method-option selected" data-method="standard">
+                <div>
+                  <strong style="display: block; font-size: 0.9375rem;">Standard Tracked Delivery (3-5 Days)</strong>
+                  <span style="font-size: 0.75rem; color: var(--text-muted);">Carbon-neutral parcel fulfillment</span>
+                </div>
+                <strong id="labelStandardShippingPrice">$4.99</strong>
+              </div>
+              <div class="shipping-method-option" data-method="express">
+                <div>
+                  <strong style="display: block; font-size: 0.9375rem;">Express Priority Courier (1-2 Days)</strong>
+                  <span style="font-size: 0.75rem; color: var(--text-muted);">Air courier with direct signature verification</span>
+                </div>
+                <strong>$12.00</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 4: Stripe Payment Interface -->
+          <div class="checkout-section">
+            <div class="checkout-section-header">
+              <span class="step-badge">4</span>
+              <h3 style="font-size: 1.125rem; font-weight: 800;">Payment via Stripe</h3>
+            </div>
+            <div class="form-grid">
+              <div class="form-group form-col-12">
+                <label class="form-label" for="stripeCardNumber">Card Number</label>
+                <div class="input-with-icon">
+                  <span class="input-icon-left">💳</span>
+                  <input type="text" id="stripeCardNumber" class="form-input" placeholder="4242 •••• •••• 4242" required maxlength="19" value="4242 4242 4242 4242" />
+                </div>
+              </div>
+              <div class="form-group form-col-6">
+                <label class="form-label" for="stripeCardExp">Expiration Date</label>
+                <input type="text" id="stripeCardExp" class="form-input" placeholder="MM / YY" required maxlength="5" value="12/28" />
+              </div>
+              <div class="form-group form-col-6">
+                <label class="form-label" for="stripeCardCvc">CVC Security Code</label>
+                <input type="text" id="stripeCardCvc" class="form-input" placeholder="123" required maxlength="4" value="888" />
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg btn-full" id="btnSubmitOrder" style="margin-top: 1.5rem;">
+              Authorize & Place Order (<span id="btnPayTotal">$0.00</span>)
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Right Order Sidebar -->
+      <aside class="summary-card" style="height: fit-content;">
+        <h3 style="font-size: 1.125rem; font-weight: 800; margin-bottom: 1rem;">Order Items</h3>
+        <div id="checkoutItemsList" style="max-height: 280px; overflow-y: auto; margin-bottom: 1rem;"></div>
+
+        <div style="border-top: 1px solid var(--border-subtle); padding-top: 1rem;">
+          <div class="summary-line">
+            <span>Subtotal</span>
+            <strong id="ckSubtotal">$0.00</strong>
+          </div>
+          <div class="summary-line" id="ckDiscountRow" style="display: none; color: var(--color-success);">
+            <span>Discount</span>
+            <strong id="ckDiscount">-$0.00</strong>
+          </div>
+          <div class="summary-line">
+            <span>Taxes (8%)</span>
+            <span id="ckTax">$0.00</span>
+          </div>
+          <div class="summary-line">
+            <span>Shipping</span>
+            <span id="ckShipping">$0.00</span>
+          </div>
+          <div class="summary-total">
+            <span>Final Total</span>
+            <span id="ckTotal">$0.00</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Order Success Modal / Receipt -->
+    <div id="orderSuccessModal" class="modal-backdrop">
+      <div class="modal-card" style="max-width: 520px; text-align: center;">
+        <div style="font-size: 3.5rem; margin-bottom: 1rem;">🎉</div>
+        <span class="badge badge-success">PAYMENT CONFIRMED</span>
+        <h2 style="font-size: 1.75rem; font-weight: 900; margin-top: 0.5rem; letter-spacing: -0.02em;">
+          Thank You For Your Order!
+        </h2>
+        <p style="color: var(--text-secondary); margin-top: 0.5rem; font-size: 0.9375rem;">
+          Your order has been queued in our high-capacity print node. Production and tracking updates have been sent to your email.
+        </p>
+
+        <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 1rem; margin: 1.5rem 0; text-align: left;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+            <span style="font-size: 0.8125rem; color: var(--text-muted);">Order Number:</span>
+            <strong style="font-family: var(--font-mono); color: var(--color-primary);" id="confirmedOrderId">ORD-98234</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+            <span style="font-size: 0.8125rem; color: var(--text-muted);">Tracking Number:</span>
+            <strong style="font-family: var(--font-mono);" id="confirmedTrackingId">FEDX-492819201</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="font-size: 0.8125rem; color: var(--text-muted);">Total Paid:</span>
+            <strong id="confirmedTotal">$0.00</strong>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 10px; justify-content: center;">
+          <a href="/pages/profile.html" class="btn btn-primary">Track Order Status →</a>
+          <a href="/index.html" class="btn btn-outline">Return to Home</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script type="module">
+    import { initTheme, showToast } from '/js/app.js';
+    import { getCart, getCartTotals, clearCart } from '/js/cart.js';
+    import { getCurrentUser } from '/js/auth.js';
+    import { saveOrder } from '/js/admin.js';
+
+    let activeShipping = 'standard';
+
+    function renderCheckout() {
+      const cart = getCart();
+      if (cart.length === 0) {
+        window.location.href = '/pages/cart.html';
+        return;
+      }
+
+      const user = getCurrentUser();
+      if (user) {
+        if (document.getElementById('custEmail')) document.getElementById('custEmail').value = user.email || '';
+        if (user.name) {
+          const parts = user.name.split(' ');
+          if (document.getElementById('custFirstName')) document.getElementById('custFirstName').value = parts[0] || '';
+          if (document.getElementById('custLastName')) document.getElementById('custLastName').value = parts.slice(1).join(' ') || '';
+        }
+      }
+
+      const listEl = document.getElementById('checkoutItemsList');
+      listEl.innerHTML = '';
+
+      cart.forEach(item => {
+        const row = document.createElement('div');
+        row.style.cssText = 'display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 0.8125rem;';
+        row.innerHTML = `
+          <img src="${item.image}" alt="${item.name}" style="width: 44px; height: 44px; object-fit: cover; border-radius: 4px;">
+          <div style="flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+            <strong style="color: var(--text-primary); display: block;">${item.name}</strong>
+            <span style="color: var(--text-muted);">${item.quantity}x (${item.size}, ${item.colorName || 'Default'})</span>
+          </div>
+          <strong style="color: var(--text-primary);">$${(item.price * item.quantity).toFixed(2)}</strong>
+        `;
+        listEl.appendChild(row);
+      });
+
+      updateTotalsDisplay();
+    }
+
+    function updateTotalsDisplay() {
+      const totals = getCartTotals(activeShipping);
+      document.getElementById('ckSubtotal').textContent = `$${totals.subtotal.toFixed(2)}`;
+      document.getElementById('ckTax').textContent = `$${totals.tax.toFixed(2)}`;
+      document.getElementById('ckShipping').textContent = totals.shipping === 0 ? 'FREE' : `$${totals.shipping.toFixed(2)}`;
+      document.getElementById('ckTotal').textContent = `$${totals.total.toFixed(2)}`;
+      document.getElementById('btnPayTotal').textContent = `$${totals.total.toFixed(2)}`;
+
+      const discountRow = document.getElementById('ckDiscountRow');
+      if (totals.discount > 0) {
+        discountRow.style.display = 'flex';
+        document.getElementById('ckDiscount').textContent = `-$${totals.discount.toFixed(2)}`;
+      } else {
+        discountRow.style.display = 'none';
+      }
+
+      // Standard label update
+      const stdLabel = document.getElementById('labelStandardShippingPrice');
+      if (stdLabel) {
+        stdLabel.textContent = totals.subtotal > 75 ? 'FREE' : '$4.99';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initTheme();
+      renderCheckout();
+
+      // Shipping option click
+      document.querySelectorAll('.shipping-method-option').forEach(opt => {
+        opt.addEventListener('click', () => {
+          document.querySelectorAll('.shipping-method-option').forEach(o => o.classList.remove('selected'));
+          opt.classList.add('selected');
+          activeShipping = opt.dataset.method;
+          updateTotalsDisplay();
+        });
+      });
+
+      // Form Submit
+      const form = document.getElementById('checkoutForm');
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const submitBtn = document.getElementById('btnSubmitOrder');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Processing Payment with Stripe...';
+
+        const totals = getCartTotals(activeShipping);
+        const cart = getCart();
+        const email = document.getElementById('custEmail').value;
+        const name = `${document.getElementById('custFirstName').value} ${document.getElementById('custLastName').value}`;
+        const address = `${document.getElementById('custAddress').value}, ${document.getElementById('custCity').value}, ${document.getElementById('custState').value} ${document.getElementById('custZip').value}`;
+
+        const generatedOrderId = 'ORD-' + Math.floor(100000 + Math.random() * 900000);
+        const generatedTracking = 'FEDX-' + Math.floor(100000000 + Math.random() * 900000000);
+
+        setTimeout(() => {
+          const newOrder = {
+            orderId: generatedOrderId,
+            userId: getCurrentUser() ? getCurrentUser().uid : 'guest',
+            customerName: name,
+            customerEmail: email,
+            total: totals.total,
+            items: cart.map(c => ({
+              name: c.name,
+              size: c.size,
+              color: c.colorName,
+              quantity: c.quantity,
+              price: c.price,
+              image: c.image
+            })),
+            shippingAddress: address,
+            status: 'processing',
+            trackingNumber: generatedTracking,
+            createdAt: new Date().toISOString()
+          };
+
+          saveOrder(newOrder);
+          clearCart();
+
+          // Show confirmation modal
+          document.getElementById('confirmedOrderId').textContent = generatedOrderId;
+          document.getElementById('confirmedTrackingId').textContent = generatedTracking;
+          document.getElementById('confirmedTotal').textContent = `$${totals.total.toFixed(2)}`;
+          document.getElementById('orderSuccessModal').classList.add('is-open');
+
+          showToast('Payment successful! Order confirmed.', 'success');
+        }, 1200);
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Account & Orders | CGAPH</title>
+  <meta name="description" content="Manage your CGAPH bespoke orders, shipment tracking numbers, delivery addresses, and custom saved designs." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css" />
+  <style>
+    .profile-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: var(--space-2xl);
+      padding: var(--space-xl) 0 var(--space-3xl);
+    }
+    .profile-nav-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.5rem 1rem;
+      height: fit-content;
+    }
+    .profile-nav-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0.75rem 1rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      margin-bottom: 4px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .profile-nav-link.active, .profile-nav-link:hover {
+      background: var(--bg-surface-elevated);
+      color: var(--text-primary);
+    }
+    .profile-nav-link.active {
+      color: var(--color-primary);
+      font-weight: 700;
+    }
+    .order-history-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+    }
+    @media (max-width: 840px) {
+      .profile-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <aside class="announcement-bar">
+    <span>Free Worldwide Express Shipping On Orders Over $75 — Code: <strong>FREESHIP</strong></span>
+  </aside>
+
+  <!-- Navbar -->
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="/index.html" class="brand-logo">
+        <span class="brand-mark">C</span>
+        <span>CGAPH</span>
+        <span class="brand-sub">STUDIO</span>
+      </a>
+
+      <nav aria-label="Primary Navigation">
+        <ul class="nav-links">
+          <li><a href="/pages/shop.html" class="nav-link">Shop Catalog</a></li>
+          <li><a href="/pages/custom-designer.html" class="nav-link">Design Studio <span class="nav-link-badge">LIVE 2.0</span></a></li>
+          <li><a href="/pages/shop.html?category=Custom+printed+T-shirts" class="nav-link">T-Shirts</a></li>
+          <li><a href="/pages/shop.html?category=Hoodies" class="nav-link">Hoodies</a></li>
+          <li><a href="/pages/about.html" class="nav-link">Brand Story</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button type="button" class="icon-btn btn-theme-toggle" aria-label="Toggle Theme">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </button>
+        <a href="/pages/wishlist.html" class="icon-btn" aria-label="Wishlist">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          <span class="icon-badge wishlist-badge-count" style="display: none;">0</span>
+        </a>
+        <a href="/pages/cart.html" class="icon-btn" aria-label="Shopping Cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+          <span class="icon-badge cart-badge-count" style="display: none;">0</span>
+        </a>
+        <div class="nav-auth-container"></div>
+        <button type="button" class="icon-btn hamburger-btn" aria-label="Open Mobile Menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <h1 class="page-title">Client Portal</h1>
+      <p class="page-subtitle" id="profileWelcomeSubtitle">Review your order history, carrier tracking numbers, and delivery preferences.</p>
+    </header>
+
+    <div class="profile-layout">
+      <!-- Profile Navigation Sidebar -->
+      <aside class="profile-nav-card">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-subtle);">
+          <div style="width: 46px; height: 46px; border-radius: var(--radius-full); background: var(--color-primary); color: #fff; font-weight: 800; font-size: 1.125rem; display: flex; align-items: center; justify-content: center;" id="userAvatarLetter">
+            A
+          </div>
+          <div style="overflow: hidden;">
+            <strong style="display: block; font-size: 0.9375rem; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" id="profileDisplayName">Alex Vance</strong>
+            <span style="font-size: 0.75rem; color: var(--text-muted);" id="profileEmailLabel">alex.vance@blackmesa.org</span>
+          </div>
+        </div>
+
+        <nav>
+          <div class="profile-nav-link active" data-tab="tabOrders">
+            <span>📦</span> Order History & Shipments
+          </div>
+          <div class="profile-nav-link" data-tab="tabAddresses">
+            <span>📍</span> Shipping Address Book
+          </div>
+          <div class="profile-nav-link" data-tab="tabAccount">
+            <span>⚙️</span> Account Settings
+          </div>
+          <div id="adminLinkContainer" style="display: none; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border-subtle);">
+            <a href="/pages/admin.html" class="profile-nav-link" style="color: var(--color-primary); font-weight: 700;">
+              <span>⚡</span> SaaS Admin Dashboard
+            </a>
+          </div>
+          <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle);">
+            <button type="button" class="btn btn-outline btn-sm btn-full" id="btnSignOutProfile" style="color: var(--color-danger); border-color: rgba(239, 68, 68, 0.3);">
+              Sign Out
+            </button>
+          </div>
+        </nav>
+      </aside>
+
+      <!-- Content Area -->
+      <section>
+        <!-- Tab: Orders -->
+        <div id="tabOrders" class="profile-content-tab">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+            <h2 style="font-size: 1.25rem; font-weight: 800;">Recent Orders & Tracking</h2>
+            <span class="badge badge-subtle" id="orderCountBadge">3 Orders</span>
+          </div>
+          <div id="ordersListContainer"></div>
+        </div>
+
+        <!-- Tab: Addresses -->
+        <div id="tabAddresses" class="profile-content-tab" style="display: none;">
+          <h2 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 1.25rem;">Saved Delivery Addresses</h2>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
+            <div style="background: var(--bg-card); border: 2px solid var(--color-primary); border-radius: var(--radius-md); padding: 1.25rem; position: relative;">
+              <span class="badge badge-primary" style="position: absolute; top: 12px; right: 12px;">DEFAULT</span>
+              <strong style="display: block; font-size: 0.9375rem; margin-bottom: 4px;">Primary Residence</strong>
+              <div style="color: var(--text-secondary); font-size: 0.8125rem; line-height: 1.5;">
+                Alex Vance<br/>
+                742 Evergreen Terrace, Apt 4B<br/>
+                Metropolis, CA 90210<br/>
+                United States
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab: Account Settings -->
+        <div id="tabAccount" class="profile-content-tab" style="display: none;">
+          <h2 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 1.25rem;">Account Preferences</h2>
+          <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.5rem; max-width: 500px;">
+            <form id="profileUpdateForm">
+              <div class="form-group" style="margin-bottom: 1rem;">
+                <label class="form-label">Full Name</label>
+                <input type="text" id="editProfileName" class="form-input" />
+              </div>
+              <div class="form-group" style="margin-bottom: 1.25rem;">
+                <label class="form-label">Email Address</label>
+                <input type="email" id="editProfileEmail" class="form-input" disabled style="opacity: 0.7;" />
+              </div>
+              <button type="submit" class="btn btn-primary">Save Changes</button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script type="module">
+    import { initTheme, updateNavbarBadges, updateAuthNav, setupMobileNav, showToast } from '/js/app.js';
+    import { getCurrentUser, logoutUser, updateUserProfile } from '/js/auth.js';
+    import { getOrders } from '/js/admin.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initTheme();
+      updateNavbarBadges();
+      updateAuthNav();
+      setupMobileNav();
+
+      const user = getCurrentUser() || {
+        name: 'Alex Vance',
+        email: 'alex.vance@blackmesa.org',
+        role: 'customer'
+      };
+
+      document.getElementById('profileDisplayName').textContent = user.name || 'Valued Customer';
+      document.getElementById('profileEmailLabel').textContent = user.email || '';
+      document.getElementById('userAvatarLetter').textContent = (user.name || user.email || 'A')[0].toUpperCase();
+      document.getElementById('editProfileName').value = user.name || '';
+      document.getElementById('editProfileEmail').value = user.email || '';
+
+      if (user.role === 'admin' || user.email === 'mesumitbhattacharjee@gmail.com') {
+        document.getElementById('adminLinkContainer').style.display = 'block';
+      }
+
+      // Tab switcher
+      document.querySelectorAll('.profile-nav-link[data-tab]').forEach(link => {
+        link.addEventListener('click', () => {
+          document.querySelectorAll('.profile-nav-link[data-tab]').forEach(l => l.classList.remove('active'));
+          document.querySelectorAll('.profile-content-tab').forEach(t => t.style.display = 'none');
+          link.classList.add('active');
+          const tabEl = document.getElementById(link.dataset.tab);
+          if (tabEl) tabEl.style.display = 'block';
+        });
+      });
+
+      // Render Orders
+      const orders = getOrders();
+      const listEl = document.getElementById('ordersListContainer');
+      document.getElementById('orderCountBadge').textContent = `${orders.length} Orders`;
+      listEl.innerHTML = '';
+
+      orders.forEach(ord => {
+        const dateStr = new Date(ord.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        const card = document.createElement('div');
+        card.className = 'order-history-card';
+        card.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 8px;">
+            <div>
+              <strong style="font-size: 1rem; color: var(--text-primary);">${ord.orderId}</strong>
+              <span style="font-size: 0.8125rem; color: var(--text-muted); margin-left: 8px;">Placed on ${dateStr}</span>
+            </div>
+            <div>
+              <span class="badge ${ord.status === 'delivered' ? 'badge-success' : 'badge-primary'}">${ord.status.toUpperCase()}</span>
+            </div>
+          </div>
+          <div style="font-size: 0.8125rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+            ${ord.items.map(i => `<div>• ${i.quantity}x ${i.name} (${i.size || 'M'}, ${i.color || 'Default'}) — $${i.price}</div>`).join('')}
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-subtle); padding-top: 0.75rem; font-size: 0.8125rem;">
+            <div>
+              <span style="color: var(--text-muted);">Tracking:</span>
+              <strong style="font-family: var(--font-mono); color: var(--color-primary);">${ord.trackingNumber || 'Processing in node'}</strong>
+            </div>
+            <strong style="font-size: 0.9375rem;">Total: $${ord.total.toFixed(2)}</strong>
+          </div>
+        `;
+        listEl.appendChild(card);
+      });
+
+      // Sign out
+      document.getElementById('btnSignOutProfile')?.addEventListener('click', async () => {
+        await logoutUser();
+        showToast('Signed out', 'info');
+        setTimeout(() => { window.location.href = '/index.html'; }, 300);
+      });
+
+      // Update Profile form
+      document.getElementById('profileUpdateForm')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const newName = document.getElementById('editProfileName').value;
+        await updateUserProfile({ name: newName });
+        document.getElementById('profileDisplayName').textContent = newName;
+        showToast('Profile updated successfully', 'success');
+      });
+    });
+  </script>
+</body>
+</html>

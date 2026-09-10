@@ -1,0 +1,7 @@
+{
+  "name": "CGAPH",
+  "description": "Premium Print-on-Demand E-commerce Store and Custom Live Apparel Designer",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

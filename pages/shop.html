@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop All Products | CGAPH Print-on-Demand</title>
+  <meta name="description" content="Explore CGAPH's full catalog of bespoke apparel, heavyweight t-shirts, oversized fits, hoodies, and custom accessories." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <aside class="announcement-bar">
+    <span>Free Worldwide Express Shipping On Orders Over $75 — Code: <strong>FREESHIP</strong></span>
+  </aside>
+
+  <!-- Navbar -->
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="/index.html" class="brand-logo">
+        <span class="brand-mark">C</span>
+        <span>CGAPH</span>
+        <span class="brand-sub">STUDIO</span>
+      </a>
+
+      <nav aria-label="Primary Navigation">
+        <ul class="nav-links">
+          <li><a href="/pages/shop.html" class="nav-link active">Shop Catalog</a></li>
+          <li><a href="/pages/custom-designer.html" class="nav-link">Design Studio <span class="nav-link-badge">LIVE 2.0</span></a></li>
+          <li><a href="/pages/shop.html?category=Custom+printed+T-shirts" class="nav-link">T-Shirts</a></li>
+          <li><a href="/pages/shop.html?category=Hoodies" class="nav-link">Hoodies</a></li>
+          <li><a href="/pages/about.html" class="nav-link">Brand Story</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button type="button" class="icon-btn btn-theme-toggle" aria-label="Toggle Theme">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </button>
+        <a href="/pages/wishlist.html" class="icon-btn" aria-label="Wishlist">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          <span class="icon-badge wishlist-badge-count" style="display: none;">0</span>
+        </a>
+        <a href="/pages/cart.html" class="icon-btn" aria-label="Shopping Cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+          <span class="icon-badge cart-badge-count" style="display: none;">0</span>
+        </a>
+        <div class="nav-auth-container">
+          <a href="/pages/login.html" class="icon-btn" aria-label="Sign In">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </a>
+        </div>
+        <button type="button" class="icon-btn hamburger-btn" aria-label="Open Mobile Menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer-backdrop"></div>
+  <aside class="mobile-drawer">
+    <div class="mobile-drawer-header">
+      <a href="/index.html" class="brand-logo"><span class="brand-mark">C</span><span>CGAPH</span></a>
+      <button type="button" class="icon-btn mobile-drawer-close">✕</button>
+    </div>
+    <ul class="mobile-nav-links">
+      <li><a href="/pages/shop.html">Shop All Products <span>→</span></a></li>
+      <li><a href="/pages/custom-designer.html" style="color: var(--color-primary);">Design Your Own Studio <span>★</span></a></li>
+      <li><a href="/pages/wishlist.html">Saved Wishlist <span>♡</span></a></li>
+      <li><a href="/pages/cart.html">View Cart <span>🛒</span></a></li>
+      <li><a href="/pages/profile.html">My Account & Orders <span>→</span></a></li>
+      <li><a href="/pages/admin.html">Admin Dashboard <span>⚡</span></a></li>
+    </ul>
+  </aside>
+
+  <main class="container">
+    <!-- Page Header -->
+    <header class="page-header">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <span class="badge badge-subtle">CATALOGUE 2026</span>
+          <h1 class="page-title">Heavyweight Essentials & Bespoke Blanks</h1>
+          <p class="page-subtitle">Every piece is constructed to strict architectural streetwear specifications and printed with zero inventory waste.</p>
+        </div>
+        <!-- Live Search -->
+        <div class="input-with-icon" style="max-width: 300px; width: 100%;">
+          <span class="input-icon-left">🔍</span>
+          <input type="text" id="shopSearchInput" class="form-input" placeholder="Search catalog..." />
+        </div>
+      </div>
+    </header>
+
+    <!-- Shop Filter & Grid Layout -->
+    <div class="shop-layout">
+      <!-- Filter Sidebar -->
+      <aside class="filter-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <h3 style="font-size: 1.0625rem; font-weight: 800;">Filters</h3>
+          <button type="button" id="btnResetFilters" style="background: none; border: none; font-size: 0.75rem; color: var(--color-primary); cursor: pointer; font-weight: 700;">Reset All</button>
+        </div>
+
+        <!-- Category Filter -->
+        <div class="filter-group">
+          <div class="filter-title">Category</div>
+          <ul class="filter-options" id="categoryFilterList">
+            <li>
+              <label class="filter-checkbox-label">
+                <input type="radio" name="catFilter" value="all" checked /> All Collections
+              </label>
+            </li>
+            <li>
+              <label class="filter-checkbox-label">
+                <input type="radio" name="catFilter" value="Custom printed T-shirts" /> Custom T-Shirts
+              </label>
+            </li>
+            <li>
+              <label class="filter-checkbox-label">
+                <input type="radio" name="catFilter" value="Oversized T-shirts" /> Oversized T-Shirts
+              </label>
+            </li>
+            <li>
+              <label class="filter-checkbox-label">
+                <input type="radio" name="catFilter" value="Hoodies" /> Hoodies
+              </label>
+            </li>
+            <li>
+              <label class="filter-checkbox-label">
+                <input type="radio" name="catFilter" value="Sweatshirts" /> Sweatshirts
+              </label>
+            </li>
+            <li>
+              <label class="filter-checkbox-label">
+                <input type="radio" name="catFilter" value="Caps" /> Caps
+              </label>
+            </li>
+            <li>
+              <label class="filter-checkbox-label">
+                <input type="radio" name="catFilter" value="Tote bags" /> Tote Bags
+              </label>
+            </li>
+            <li>
+              <label class="filter-checkbox-label">
+                <input type="radio" name="catFilter" value="Backpacks" /> Backpacks
+              </label>
+            </li>
+            <li>
+              <label class="filter-checkbox-label">
+                <input type="radio" name="catFilter" value="Mugs" /> Mugs
+              </label>
+            </li>
+            <li>
+              <label class="filter-checkbox-label">
+                <input type="radio" name="catFilter" value="Phone cases" /> Phone Cases
+              </label>
+            </li>
+            <li>
+              <label class="filter-checkbox-label">
+                <input type="radio" name="catFilter" value="Posters" /> Posters
+              </label>
+            </li>
+            <li>
+              <label class="filter-checkbox-label">
+                <input type="radio" name="catFilter" value="Stickers" /> Stickers
+              </label>
+            </li>
+            <li>
+              <label class="filter-checkbox-label">
+                <input type="radio" name="catFilter" value="Custom accessories" /> Custom Accessories
+              </label>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Price Range Slider -->
+        <div class="filter-group">
+          <div class="filter-title">
+            <span>Max Price</span>
+            <span id="priceDisplayLabel" style="color: var(--color-primary);">$120</span>
+          </div>
+          <input type="range" id="priceRangeInput" min="10" max="150" value="150" step="5" style="width: 100%; accent-color: var(--color-primary);" />
+        </div>
+
+        <!-- Size Filter -->
+        <div class="filter-group">
+          <div class="filter-title">Garment Size</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px;" id="sizeFilterChips">
+            <button type="button" class="btn btn-sm btn-secondary size-chip active" data-size="ALL">ALL</button>
+            <button type="button" class="btn btn-sm btn-secondary size-chip" data-size="S">S</button>
+            <button type="button" class="btn btn-sm btn-secondary size-chip" data-size="M">M</button>
+            <button type="button" class="btn btn-sm btn-secondary size-chip" data-size="L">L</button>
+            <button type="button" class="btn btn-sm btn-secondary size-chip" data-size="XL">XL</button>
+            <button type="button" class="btn btn-sm btn-secondary size-chip" data-size="2XL">2XL</button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Products Display Area -->
+      <section>
+        <!-- Sort and Counter Bar -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; background: var(--bg-card); padding: 0.75rem 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+          <div style="font-size: 0.875rem; color: var(--text-secondary);">
+            Showing <strong id="productCountLabel" style="color: var(--text-primary);">12</strong> products
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label for="shopSortSelect" style="font-size: 0.8125rem; font-weight: 600; color: var(--text-muted);">Sort By:</label>
+            <select id="shopSortSelect" class="form-select" style="padding: 4px 10px; font-size: 0.8125rem; width: auto;">
+              <option value="featured">Featured Collection</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+              <option value="rating">Highest Rated</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Product Grid Container -->
+        <div class="product-grid" id="shopProductGrid"></div>
+        <div id="shopEmptyState" style="display: none; text-align: center; padding: 4rem 1rem;">
+          <div style="font-size: 3rem; margin-bottom: 1rem;">🔍</div>
+          <h3 style="font-size: 1.25rem; font-weight: 800;">No matching products found</h3>
+          <p style="color: var(--text-muted); margin-top: 0.5rem;">Try adjusting your filters, price range, or search keywords.</p>
+          <button class="btn btn-primary" id="btnResetEmpty" style="margin-top: 1.5rem;">Clear All Filters</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      <div>© 2026 CGAPH Studio Inc. All rights reserved.</div>
+      <div>High-DPI Print-on-Demand E-commerce</div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script type="module">
+    import { initTheme, updateNavbarBadges, updateAuthNav, setupMobileNav, showToast } from '/js/app.js';
+    import { getProducts } from '/js/products.js';
+    import { addToCart, toggleWishlist, isInWishlist } from '/js/cart.js';
+
+    let allProducts = [];
+    let activeCategory = 'all';
+    let activeSize = 'ALL';
+    let maxPrice = 150;
+    let searchQuery = '';
+    let sortBy = 'featured';
+
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('category')) {
+      activeCategory = urlParams.get('category');
+    }
+
+    async function initShop() {
+      allProducts = await getProducts();
+      
+      // Sync URL category to radio
+      const radio = document.querySelector(`input[name="catFilter"][value="${activeCategory}"]`);
+      if (radio) radio.checked = true;
+
+      renderProducts();
+      setupFilterListeners();
+    }
+
+    function renderProducts() {
+      const grid = document.getElementById('shopProductGrid');
+      const countLabel = document.getElementById('productCountLabel');
+      const emptyState = document.getElementById('shopEmptyState');
+      if (!grid) return;
+
+      let filtered = allProducts.filter(p => {
+        // Category filter
+        if (activeCategory !== 'all' && p.category !== activeCategory) return false;
+        // Price filter
+        if (p.price > maxPrice) return false;
+        // Size filter
+        if (activeSize !== 'ALL' && p.sizes && !p.sizes.includes(activeSize)) return false;
+        // Search filter
+        if (searchQuery) {
+          const matchName = p.name.toLowerCase().includes(searchQuery.toLowerCase());
+          const matchCat = p.category.toLowerCase().includes(searchQuery.toLowerCase());
+          const matchDesc = p.description && p.description.toLowerCase().includes(searchQuery.toLowerCase());
+          if (!matchName && !matchCat && !matchDesc) return false;
+        }
+        return true;
+      });
+
+      // Sorting
+      if (sortBy === 'price-asc') {
+        filtered.sort((a, b) => a.price - b.price);
+      } else if (sortBy === 'price-desc') {
+        filtered.sort((a, b) => b.price - a.price);
+      } else if (sortBy === 'rating') {
+        filtered.sort((a, b) => b.rating - a.rating);
+      }
+
+      countLabel.textContent = filtered.length.toString();
+
+      if (filtered.length === 0) {
+        grid.innerHTML = '';
+        emptyState.style.display = 'block';
+        return;
+      }
+
+      emptyState.style.display = 'none';
+      grid.innerHTML = '';
+
+      filtered.forEach(prod => {
+        const inWish = isInWishlist(prod.id);
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+          <div class="product-card-media">
+            <div class="product-badges">
+              ${prod.badge ? `<span class="badge badge-primary">${prod.badge}</span>` : ''}
+            </div>
+            <button type="button" class="product-wishlist-btn ${inWish ? 'active' : ''}" data-id="${prod.id}" aria-label="Toggle Wishlist">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="${inWish ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+            </button>
+            <a href="/pages/product.html?id=${prod.id}">
+              <img src="${prod.images[0]}" alt="${prod.name}" class="product-card-img" loading="lazy">
+            </a>
+          </div>
+          <div class="product-card-content">
+            <span class="product-category">${prod.category}</span>
+            <a href="/pages/product.html?id=${prod.id}" class="product-title">${prod.name}</a>
+            <div class="product-meta">
+              <span class="product-price">$${prod.price.toFixed(2)}</span>
+              <div class="product-rating">
+                <span style="color: #F59E0B;">★</span>
+                <span>${prod.rating}</span>
+                <span style="color: var(--text-muted); font-size: 0.75rem;">(${prod.reviewsCount})</span>
+              </div>
+            </div>
+            <div class="product-card-actions">
+              <button class="btn btn-secondary btn-sm btn-full btn-quick-add" data-id="${prod.id}">
+                Quick Add to Cart
+              </button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      // Quick Add
+      grid.querySelectorAll('.btn-quick-add').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const prod = allProducts.find(p => p.id === btn.dataset.id);
+          if (prod) {
+            addToCart(prod, prod.sizes[0] || 'M', prod.colors[0] || '#0B0B0E', prod.colorNames ? prod.colorNames[0] : 'Black', 1);
+            showToast(`Added ${prod.name} to Cart`, 'success');
+          }
+        });
+      });
+
+      // Wishlist toggle
+      grid.querySelectorAll('.product-wishlist-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const active = toggleWishlist(btn.dataset.id);
+          btn.classList.toggle('active', active);
+          const svg = btn.querySelector('svg');
+          if (svg) svg.setAttribute('fill', active ? 'currentColor' : 'none');
+          showToast(active ? 'Saved to Wishlist' : 'Removed from Wishlist', 'info');
+        });
+      });
+    }
+
+    function setupFilterListeners() {
+      // Category radio buttons
+      document.querySelectorAll('input[name="catFilter"]').forEach(r => {
+        r.addEventListener('change', (e) => {
+          activeCategory = e.target.value;
+          renderProducts();
+        });
+      });
+
+      // Price slider
+      const priceInput = document.getElementById('priceRangeInput');
+      const priceLabel = document.getElementById('priceDisplayLabel');
+      if (priceInput && priceLabel) {
+        priceInput.addEventListener('input', (e) => {
+          maxPrice = parseFloat(e.target.value);
+          priceLabel.textContent = `$${maxPrice}`;
+          renderProducts();
+        });
+      }
+
+      // Size chips
+      document.querySelectorAll('.size-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          document.querySelectorAll('.size-chip').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          activeSize = chip.dataset.size;
+          renderProducts();
+        });
+      });
+
+      // Search input
+      const searchInput = document.getElementById('shopSearchInput');
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          searchQuery = e.target.value.trim();
+          renderProducts();
+        });
+      }
+
+      // Sort Select
+      const sortSelect = document.getElementById('shopSortSelect');
+      if (sortSelect) {
+        sortSelect.addEventListener('change', (e) => {
+          sortBy = e.target.value;
+          renderProducts();
+        });
+      }
+
+      // Reset
+      const reset = () => {
+        activeCategory = 'all';
+        activeSize = 'ALL';
+        maxPrice = 150;
+        searchQuery = '';
+        if (priceInput) priceInput.value = 150;
+        if (priceLabel) priceLabel.textContent = '$150';
+        if (searchInput) searchInput.value = '';
+        const allRadio = document.querySelector('input[name="catFilter"][value="all"]');
+        if (allRadio) allRadio.checked = true;
+        document.querySelectorAll('.size-chip').forEach(c => c.classList.remove('active'));
+        document.querySelector('.size-chip[data-size="ALL"]')?.classList.add('active');
+        renderProducts();
+      };
+
+      document.getElementById('btnResetFilters')?.addEventListener('click', reset);
+      document.getElementById('btnResetEmpty')?.addEventListener('click', reset);
+    }
+
+    document.addEventListener('DOMContentLoaded', initShop);
+  </script>
+</body>
+</html>

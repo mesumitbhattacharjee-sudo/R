@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Details | CGAPH Print-on-Demand</title>
+  <meta name="description" content="View detailed garment specifications, heavyweight fabric construction, and print details." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css" />
+  <style>
+    .product-detail-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-3xl);
+      padding: var(--space-2xl) 0 var(--space-3xl);
+    }
+    .gallery-main {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 1 / 1.15;
+      background-color: var(--bg-alt);
+      border: 1px solid var(--border-subtle);
+      margin-bottom: var(--space-md);
+    }
+    .gallery-main img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-smooth);
+    }
+    .gallery-thumbs {
+      display: flex;
+      gap: 12px;
+    }
+    .gallery-thumb {
+      width: 72px;
+      height: 84px;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      border: 2px solid transparent;
+      cursor: pointer;
+      background: var(--bg-alt);
+    }
+    .gallery-thumb.active {
+      border-color: var(--color-primary);
+    }
+    .gallery-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .color-chip {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-full);
+      border: 2px solid var(--border-subtle);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+    .color-chip.active {
+      border-color: var(--color-primary);
+      transform: scale(1.15);
+    }
+    .size-select-chip {
+      padding: 0.6rem 1.2rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      font-weight: 700;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .size-select-chip.active {
+      border-color: var(--color-primary);
+      background: var(--color-primary-subtle);
+      color: var(--color-primary);
+    }
+    @media (max-width: 900px) {
+      .product-detail-layout {
+        grid-template-columns: 1fr;
+        gap: var(--space-xl);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <aside class="announcement-bar">
+    <span>Free Worldwide Express Shipping On Orders Over $75 — Code: <strong>FREESHIP</strong></span>
+  </aside>
+
+  <!-- Navbar -->
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="/index.html" class="brand-logo">
+        <span class="brand-mark">C</span>
+        <span>CGAPH</span>
+        <span class="brand-sub">STUDIO</span>
+      </a>
+
+      <nav aria-label="Primary Navigation">
+        <ul class="nav-links">
+          <li><a href="/pages/shop.html" class="nav-link">Shop Catalog</a></li>
+          <li><a href="/pages/custom-designer.html" class="nav-link">Design Studio <span class="nav-link-badge">LIVE 2.0</span></a></li>
+          <li><a href="/pages/shop.html?category=Custom+printed+T-shirts" class="nav-link">T-Shirts</a></li>
+          <li><a href="/pages/shop.html?category=Hoodies" class="nav-link">Hoodies</a></li>
+          <li><a href="/pages/about.html" class="nav-link">Brand Story</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button type="button" class="icon-btn btn-theme-toggle" aria-label="Toggle Theme">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </button>
+        <a href="/pages/wishlist.html" class="icon-btn" aria-label="Wishlist">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          <span class="icon-badge wishlist-badge-count" style="display: none;">0</span>
+        </a>
+        <a href="/pages/cart.html" class="icon-btn" aria-label="Shopping Cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+          <span class="icon-badge cart-badge-count" style="display: none;">0</span>
+        </a>
+        <div class="nav-auth-container">
+          <a href="/pages/login.html" class="icon-btn" aria-label="Sign In">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </a>
+        </div>
+        <button type="button" class="icon-btn hamburger-btn" aria-label="Open Mobile Menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer-backdrop"></div>
+  <aside class="mobile-drawer">
+    <div class="mobile-drawer-header">
+      <a href="/index.html" class="brand-logo"><span class="brand-mark">C</span><span>CGAPH</span></a>
+      <button type="button" class="icon-btn mobile-drawer-close">✕</button>
+    </div>
+    <ul class="mobile-nav-links">
+      <li><a href="/pages/shop.html">Shop All Products <span>→</span></a></li>
+      <li><a href="/pages/custom-designer.html" style="color: var(--color-primary);">Design Your Own Studio <span>★</span></a></li>
+      <li><a href="/pages/wishlist.html">Saved Wishlist <span>♡</span></a></li>
+      <li><a href="/pages/cart.html">View Cart <span>🛒</span></a></li>
+      <li><a href="/pages/profile.html">My Account & Orders <span>→</span></a></li>
+      <li><a href="/pages/admin.html">Admin Dashboard <span>⚡</span></a></li>
+    </ul>
+  </aside>
+
+  <main class="container">
+    <!-- Breadcrumbs -->
+    <div style="padding: 1.5rem 0 0; font-size: 0.8125rem; color: var(--text-muted);">
+      <a href="/index.html" style="color: var(--text-secondary); text-decoration: none;">Home</a> / 
+      <a href="/pages/shop.html" style="color: var(--text-secondary); text-decoration: none;">Shop</a> / 
+      <span id="breadcrumbCategory" style="color: var(--text-primary);">Product</span>
+    </div>
+
+    <!-- Product Layout -->
+    <div class="product-detail-layout" id="productDetailContainer">
+      <!-- Media Gallery -->
+      <div>
+        <div class="gallery-main" id="galleryMain">
+          <img id="mainProductImage" src="" alt="Product Photo" />
+        </div>
+        <div class="gallery-thumbs" id="galleryThumbsContainer"></div>
+      </div>
+
+      <!-- Product Info & Purchase Form -->
+      <div>
+        <div style="margin-bottom: 0.5rem;">
+          <span class="badge badge-primary" id="detailBadge">Limited Drop</span>
+          <span class="badge badge-dark" id="detailCategory">Category</span>
+        </div>
+
+        <h1 style="font-size: 2.25rem; font-weight: 900; letter-spacing: -0.03em; margin-bottom: 0.5rem;" id="detailTitle">
+          Product Name
+        </h1>
+
+        <!-- Rating & Reviews Count -->
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.25rem;">
+          <div style="color: #F59E0B; font-weight: 700; font-size: 0.9375rem;">★★★★★</div>
+          <span style="font-size: 0.875rem; font-weight: 600;" id="detailRating">5.0</span>
+          <span style="color: var(--text-muted); font-size: 0.875rem;" id="detailReviewCount">(142 verified reviews)</span>
+        </div>
+
+        <!-- Price -->
+        <div style="font-size: 2rem; font-weight: 900; color: var(--text-primary); margin-bottom: 1.5rem;" id="detailPrice">
+          $38.00
+        </div>
+
+        <!-- Specific Quote Display if Atomic Tee -->
+        <div id="atomicQuoteNotice" style="display: none; background: var(--bg-surface); border-left: 4px solid var(--color-primary); padding: 1rem; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; margin-bottom: 1.5rem; font-family: var(--font-mono); font-size: 0.875rem; line-height: 1.5;">
+          "If I don't want to be vaporized in a nuclear explosion, I simply have to become nuclear myself… I am Atomic." — Shadow write this not different
+        </div>
+
+        <!-- Description -->
+        <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.5rem;" id="detailDescription">
+          Garment description goes here.
+        </p>
+
+        <!-- Color Selector -->
+        <div style="margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+            <strong style="font-size: 0.875rem;">Color: <span id="selectedColorName" style="color: var(--color-primary); font-weight: 700;">Void Black</span></strong>
+          </div>
+          <div style="display: flex; gap: 10px;" id="detailColorChips"></div>
+        </div>
+
+        <!-- Size Selector -->
+        <div style="margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+            <strong style="font-size: 0.875rem;">Select Size</strong>
+            <span style="font-size: 0.8125rem; color: var(--color-primary); text-decoration: underline; cursor: pointer;">True to size relaxed fit</span>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;" id="detailSizeChips"></div>
+        </div>
+
+        <!-- Quantity & Add to Cart -->
+        <div style="display: flex; gap: 1rem; margin-bottom: 2rem; align-items: center;">
+          <div class="quantity-control">
+            <button type="button" class="qty-btn" id="btnQtyMinus">-</button>
+            <input type="text" class="qty-input" id="qtyInput" value="1" readonly />
+            <button type="button" class="qty-btn" id="btnQtyPlus">+</button>
+          </div>
+          <button type="button" class="btn btn-primary btn-lg" id="btnAddToCart" style="flex: 1;">
+            Add to Bag — <span id="btnPriceTotal">$38.00</span>
+          </button>
+          <button type="button" class="icon-btn" id="btnDetailWishlist" style="width: 50px; height: 50px;" aria-label="Save to Wishlist">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          </button>
+        </div>
+
+        <!-- Secondary Customizer Link -->
+        <a href="/pages/custom-designer.html" class="btn btn-outline btn-full" style="margin-bottom: 2rem;">
+          🎨 Customize or Add Custom Text in HTML5 Studio →
+        </a>
+
+        <!-- Specs Card -->
+        <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 0.9375rem; font-weight: 700; margin-bottom: 0.75rem;">Garment Engineering & Specifications</h4>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.8125rem; color: var(--text-secondary);" id="detailSpecsList">
+            <li>• Material: 100% Ring-spun Heavyweight Cotton (260 GSM)</li>
+            <li>• Print: Japanese Digital Discharge Direct-to-Garment Inks</li>
+            <li>• Wash: Cold gentle cycle, pre-shrunk anti-torquing weave</li>
+            <li>• Fulfillment: Dispatched in 48 hours with carbon-neutral parcel</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      <div>© 2026 CGAPH Studio Inc. All rights reserved.</div>
+      <div>Zero generic templates · Premium Print-on-Demand E-commerce</div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script type="module">
+    import { initTheme, updateNavbarBadges, updateAuthNav, setupMobileNav, showToast } from '/js/app.js';
+    import { getProductById, getProducts } from '/js/products.js';
+    import { addToCart, toggleWishlist, isInWishlist } from '/js/cart.js';
+
+    let product = null;
+    let selectedColor = '';
+    let selectedColorName = '';
+    let selectedSize = '';
+    let quantity = 1;
+
+    async function initProductPage() {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('id') || 'prod-atomic-tee';
+      product = await getProductById(id);
+
+      if (!product) {
+        const all = await getProducts();
+        product = all[0];
+      }
+
+      renderDetails();
+    }
+
+    function renderDetails() {
+      document.title = `${product.name} | CGAPH`;
+      document.getElementById('breadcrumbCategory').textContent = product.name;
+      document.getElementById('detailTitle').textContent = product.name;
+      document.getElementById('detailCategory').textContent = product.category;
+      document.getElementById('detailBadge').textContent = product.badge || 'New Drop';
+      document.getElementById('detailPrice').textContent = `$${product.price.toFixed(2)}`;
+      document.getElementById('btnPriceTotal').textContent = `$${product.price.toFixed(2)}`;
+      document.getElementById('detailRating').textContent = product.rating.toString();
+      document.getElementById('detailReviewCount').textContent = `(${product.reviewsCount} verified reviews)`;
+      document.getElementById('detailDescription').textContent = product.description;
+
+      // Show Atomic quote if relevant
+      if (product.printQuote || product.id === 'prod-atomic-tee') {
+        document.getElementById('atomicQuoteNotice').style.display = 'block';
+      }
+
+      // Main image
+      const mainImg = document.getElementById('mainProductImage');
+      mainImg.src = product.images[0];
+      mainImg.alt = product.name;
+
+      // Thumbs
+      const thumbsContainer = document.getElementById('galleryThumbsContainer');
+      thumbsContainer.innerHTML = '';
+      product.images.forEach((imgUrl, i) => {
+        const thumb = document.createElement('div');
+        thumb.className = `gallery-thumb ${i === 0 ? 'active' : ''}`;
+        thumb.innerHTML = `<img src="${imgUrl}" alt="Thumbnail ${i + 1}">`;
+        thumb.addEventListener('click', () => {
+          mainImg.src = imgUrl;
+          thumbsContainer.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+          thumb.classList.add('active');
+        });
+        thumbsContainer.appendChild(thumb);
+      });
+
+      // Colors
+      const colorsContainer = document.getElementById('detailColorChips');
+      colorsContainer.innerHTML = '';
+      selectedColor = product.colors[0] || '#0B0B0E';
+      selectedColorName = (product.colorNames && product.colorNames[0]) || 'Black';
+      document.getElementById('selectedColorName').textContent = selectedColorName;
+
+      product.colors.forEach((hex, i) => {
+        const cName = (product.colorNames && product.colorNames[i]) || 'Color ' + (i + 1);
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = `color-chip ${i === 0 ? 'active' : ''}`;
+        chip.style.backgroundColor = hex;
+        chip.title = cName;
+        chip.addEventListener('click', () => {
+          colorsContainer.querySelectorAll('.color-chip').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          selectedColor = hex;
+          selectedColorName = cName;
+          document.getElementById('selectedColorName').textContent = selectedColorName;
+        });
+        colorsContainer.appendChild(chip);
+      });
+
+      // Sizes
+      const sizesContainer = document.getElementById('detailSizeChips');
+      sizesContainer.innerHTML = '';
+      selectedSize = product.sizes[0] || 'M';
+
+      product.sizes.forEach((s, i) => {
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = `size-select-chip ${i === 0 ? 'active' : ''}`;
+        chip.textContent = s;
+        chip.addEventListener('click', () => {
+          sizesContainer.querySelectorAll('.size-select-chip').forEach(sc => sc.classList.remove('active'));
+          chip.classList.add('active');
+          selectedSize = s;
+        });
+        sizesContainer.appendChild(chip);
+      });
+
+      // Specs
+      if (product.specs) {
+        const specsList = document.getElementById('detailSpecsList');
+        specsList.innerHTML = '';
+        Object.entries(product.specs).forEach(([k, v]) => {
+          const li = document.createElement('li');
+          li.textContent = `• ${k.charAt(0).toUpperCase() + k.slice(1)}: ${v}`;
+          specsList.appendChild(li);
+        });
+      }
+
+      // Quantity buttons
+      const qInput = document.getElementById('qtyInput');
+      const btnMinus = document.getElementById('btnQtyMinus');
+      const btnPlus = document.getElementById('btnQtyPlus');
+      const totalBtnLabel = document.getElementById('btnPriceTotal');
+
+      btnMinus.addEventListener('click', () => {
+        if (quantity > 1) {
+          quantity--;
+          qInput.value = quantity;
+          totalBtnLabel.textContent = `$${(product.price * quantity).toFixed(2)}`;
+        }
+      });
+
+      btnPlus.addEventListener('click', () => {
+        quantity++;
+        qInput.value = quantity;
+        totalBtnLabel.textContent = `$${(product.price * quantity).toFixed(2)}`;
+      });
+
+      // Add to Cart
+      document.getElementById('btnAddToCart').addEventListener('click', () => {
+        addToCart(product, selectedSize, selectedColor, selectedColorName, quantity);
+        showToast(`Added ${quantity}x ${product.name} to Cart`, 'success');
+      });
+
+      // Wishlist button
+      const wishBtn = document.getElementById('btnDetailWishlist');
+      const inWish = isInWishlist(product.id);
+      wishBtn.classList.toggle('active', inWish);
+      if (inWish) wishBtn.querySelector('svg').setAttribute('fill', 'currentColor');
+
+      wishBtn.addEventListener('click', () => {
+        const active = toggleWishlist(product.id);
+        wishBtn.classList.toggle('active', active);
+        wishBtn.querySelector('svg').setAttribute('fill', active ? 'currentColor' : 'none');
+        showToast(active ? 'Saved to Wishlist' : 'Removed from Wishlist', 'info');
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', initProductPage);
+  </script>
+</body>
+</html>
