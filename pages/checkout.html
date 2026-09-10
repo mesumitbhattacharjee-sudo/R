@@ -358,7 +358,7 @@
         const generatedOrderId = 'ORD-' + Math.floor(100000 + Math.random() * 900000);
         const generatedTracking = 'FEDX-' + Math.floor(100000000 + Math.random() * 900000000);
 
-        setTimeout(() => {
+        setTimeout(async () => {
           const newOrder = {
             orderId: generatedOrderId,
             userId: getCurrentUser() ? getCurrentUser().uid : 'guest',
@@ -379,7 +379,7 @@
             createdAt: new Date().toISOString()
           };
 
-          saveOrder(newOrder);
+          await saveOrder(newOrder);
           clearCart();
 
           // Show confirmation modal
@@ -388,7 +388,7 @@
           document.getElementById('confirmedTotal').textContent = `$${totals.total.toFixed(2)}`;
           document.getElementById('orderSuccessModal').classList.add('is-open');
 
-          showToast('Payment successful! Order confirmed.', 'success');
+          showToast('Payment successful! Order confirmed and saved to Firestore.', 'success');
         }, 1200);
       });
     });

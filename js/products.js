@@ -323,7 +323,7 @@ export function initProducts() {
 }
 
 /**
- * Fetch all active products
+ * Fetch all active products directly from Firebase Firestore
  */
 export async function getProducts() {
   initProducts();
@@ -331,7 +331,20 @@ export async function getProducts() {
     if (db) {
       const snap = await getDocs(collection(db, 'products'));
       if (snap && snap.docs && snap.docs.length > 0) {
-        return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        const prods = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(prods));
+        return prods;
+      } else {
+        // Auto-seed Firestore on initial connect so live database contains products
+        console.log("Auto-seeding initial product catalog to Firestore...");
+        for (const item of DEMO_PRODUCTS) {
+          try {
+            await setDoc(doc(db, 'products', item.id), item);
+          } catch (seedErr) {
+            console.warn("Initial seed error:", seedErr.message);
+          }
+        }
+        return DEMO_PRODUCTS;
       }
     }
   } catch (err) {
@@ -345,28 +358,26 @@ export async function getProducts() {
  * Fetch a single product by ID
  */
 export async function getProductById(id) {
+  if (db) {
+    try {
+      const snap = await doc(db, 'products', id);
+      // fallback to getProducts if needed
+    } catch (e) {
+      // ignore
+    }
+  }
   const all = await getProducts();
   return all.find(p => p.id === id) || null;
 }
 
 /**
- * Save / Update a product (Admin capability)
+ * Save / Update a product (Admin capability via Firebase Firestore)
  */
 export async function saveProduct(product) {
-  const all = await getProducts();
-  const existingIndex = all.findIndex(p => p.id === product.id);
-  
-  if (existingIndex >= 0) {
-    all[existingIndex] = { ...all[existingIndex], ...product, updatedAt: new Date().toISOString() };
-  } else {
-    product.id = product.id || 'prod-' + Date.now();
-    product.createdAt = new Date().toISOString();
-    all.unshift(product);
-  }
+  product.id = product.id || 'prod-' + Date.now();
+  product.updatedAt = new Date().toISOString();
 
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
-
-  // Sync to Firestore if available
+  // Sync directly to Firestore
   try {
     if (db) {
       await setDoc(doc(db, 'products', product.id), product);
@@ -375,17 +386,23 @@ export async function saveProduct(product) {
     console.warn("Could not sync product to Firestore:", e.message);
   }
 
+  const all = await getProducts();
+  const existingIndex = all.findIndex(p => p.id === product.id);
+  if (existingIndex >= 0) {
+    all[existingIndex] = { ...all[existingIndex], ...product };
+  } else {
+    product.createdAt = product.createdAt || new Date().toISOString();
+    all.unshift(product);
+  }
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
   return product;
 }
 
 /**
- * Delete product by ID
+ * Delete product by ID via Firebase Firestore
  */
 export async function deleteProduct(id) {
-  let all = await getProducts();
-  all = all.filter(p => p.id !== id);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
-
   try {
     if (db) {
       await deleteDoc(doc(db, 'products', id));
@@ -393,6 +410,10 @@ export async function deleteProduct(id) {
   } catch (e) {
     console.warn("Could not delete from Firestore:", e.message);
   }
+
+  let all = await getProducts();
+  all = all.filter(p => p.id !== id);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
 }
 
 /**

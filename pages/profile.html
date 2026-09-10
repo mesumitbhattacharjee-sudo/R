@@ -202,7 +202,7 @@
     import { getCurrentUser, logoutUser, updateUserProfile } from '/js/auth.js';
     import { getOrders } from '/js/admin.js';
 
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', async () => {
       initTheme();
       updateNavbarBadges();
       updateAuthNav();
@@ -235,8 +235,8 @@
         });
       });
 
-      // Render Orders
-      const orders = getOrders();
+      // Render Orders directly from Firebase Firestore
+      const orders = await getOrders();
       const listEl = document.getElementById('ordersListContainer');
       document.getElementById('orderCountBadge').textContent = `${orders.length} Orders`;
       listEl.innerHTML = '';

@@ -3,7 +3,7 @@
  */
 
 import { getProducts, saveProduct, deleteProduct, seedProductsToFirestore, DEMO_PRODUCTS } from './products.js';
-import { db, collection, getDocs, doc, updateDoc } from './firebase-config.js';
+import { db, collection, getDocs, doc, updateDoc, setDoc } from './firebase-config.js';
 import { showToast } from './app.js';
 
 const ORDERS_STORAGE_KEY = 'cgaph_orders_v1';
@@ -57,7 +57,30 @@ export const DEMO_ORDERS = [
   }
 ];
 
-export function getOrders() {
+export async function getOrders() {
+  try {
+    if (db) {
+      const snap = await getDocs(collection(db, 'orders'));
+      if (snap && snap.docs && snap.docs.length > 0) {
+        const list = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        localStorage.setItem(ORDERS_STORAGE_KEY, JSON.stringify(list));
+        return list;
+      } else {
+        // Auto-seed initial orders to Firestore
+        console.log("Seeding initial orders to Firestore...");
+        for (const o of DEMO_ORDERS) {
+          try {
+            await setDoc(doc(db, 'orders', o.orderId), o);
+          } catch (e) {
+            console.warn("Order seed notice:", e.message);
+          }
+        }
+        return DEMO_ORDERS;
+      }
+    }
+  } catch (err) {
+    console.warn("Firestore getOrders notice:", err.message);
+  }
   const local = localStorage.getItem(ORDERS_STORAGE_KEY);
   if (!local) {
     localStorage.setItem(ORDERS_STORAGE_KEY, JSON.stringify(DEMO_ORDERS));
@@ -66,28 +89,39 @@ export function getOrders() {
   return JSON.parse(local);
 }
 
-export function saveOrder(order) {
-  const orders = getOrders();
+export async function saveOrder(order) {
+  try {
+    if (db) {
+      await setDoc(doc(db, 'orders', order.orderId), order);
+    }
+  } catch (e) {
+    console.warn("Firestore saveOrder notice:", e.message);
+  }
+
+  const orders = await getOrders();
   orders.unshift(order);
   localStorage.setItem(ORDERS_STORAGE_KEY, JSON.stringify(orders));
   return order;
 }
 
-export function updateOrderStatus(orderId, newStatus, tracking = null) {
-  const orders = getOrders();
+export async function updateOrderStatus(orderId, newStatus, tracking = null) {
+  try {
+    if (db) {
+      await updateDoc(doc(db, 'orders', orderId), { 
+        status: newStatus, 
+        ...(tracking !== null ? { trackingNumber: tracking } : {}) 
+      });
+    }
+  } catch (e) {
+    console.warn("Firestore updateOrderStatus notice:", e.message);
+  }
+
+  const orders = await getOrders();
   const order = orders.find(o => o.orderId === orderId);
   if (order) {
     order.status = newStatus;
     if (tracking !== null) order.trackingNumber = tracking;
     localStorage.setItem(ORDERS_STORAGE_KEY, JSON.stringify(orders));
-
-    try {
-      if (db) {
-        updateDoc(doc(db, 'orders', orderId), { status: newStatus, ...(tracking ? { trackingNumber: tracking } : {}) });
-      }
-    } catch (e) {
-      console.warn("Firestore order update fallback:", e.message);
-    }
   }
   return orders;
 }
@@ -101,7 +135,7 @@ export class AdminDashboard {
 
   async init() {
     this.products = await getProducts();
-    this.orders = getOrders();
+    this.orders = await getOrders();
     this.renderKPIs();
     this.renderProductsTable();
     this.renderOrdersTable();
@@ -208,17 +242,18 @@ export class AdminDashboard {
     });
 
     tbody.querySelectorAll('.status-select').forEach(sel => {
-      sel.addEventListener('change', (e) => {
+      sel.addEventListener('change', async (e) => {
         const orderId = e.target.dataset.id;
         const newStatus = e.target.value;
         let tracking = null;
         if (newStatus === 'shipped') {
           tracking = prompt('Enter Carrier Tracking Number:', 'FEDX-' + Math.floor(100000000 + Math.random() * 900000000));
         }
-        updateOrderStatus(orderId, newStatus, tracking);
-        this.orders = getOrders();
+        await updateOrderStatus(orderId, newStatus, tracking);
+        this.orders = await getOrders();
         this.renderOrdersTable();
-        showToast(`Order ${orderId} status set to ${newStatus}`, 'success');
+        this.renderKPIs();
+        showToast(`Order ${orderId} status set to ${newStatus.toUpperCase()}`, 'success');
       });
     });
   }

@@ -1,10 +1,9 @@
 /**
  * CGAPH - Firebase Configuration and Initialization
- * Connects to Firebase Authentication, Cloud Firestore, and Cloud Storage.
- * Supports live Firebase SDK and fallback offline-resilient local sync.
+ * Connects to Firebase Authentication, Cloud Firestore, and Cloud Storage using Firebase SDK 12.18.0.
  */
 
-import { initializeApp, getApps, getApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 import { 
   getAuth, 
   signInWithEmailAndPassword, 
@@ -14,7 +13,7 @@ import {
   signOut, 
   onAuthStateChanged,
   updateProfile 
-} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 import { 
   getFirestore, 
   collection, 
@@ -29,28 +28,35 @@ import {
   where, 
   orderBy, 
   serverTimestamp 
-} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+import {
+  getStorage,
+  ref as storageRef,
+  uploadBytes,
+  getDownloadURL
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-storage.js";
 
-// Default configuration placeholder - user can update with their console keys
+// Your web app's Firebase configuration
 export const firebaseConfig = {
-  apiKey: "AIzaSyDemoDummyKey-ReplaceWithYourActualFirebaseApiKey",
-  authDomain: "cgaph-ecommerce.firebaseapp.com",
-  projectId: "cgaph-ecommerce",
-  storageBucket: "cgaph-ecommerce.appspot.com",
-  messagingSenderId: "123456789012",
-  appId: "1:123456789012:web:abcdef123456"
+  apiKey: "AIzaSyA_BHHxKOXSlswVHCVHZkX_QlcY2Vz2d5Q",
+  authDomain: "shayan-gay.firebaseapp.com",
+  projectId: "shayan-gay",
+  storageBucket: "shayan-gay.firebasestorage.app",
+  messagingSenderId: "503552166039",
+  appId: "1:503552166039:web:d64cbacbb0a0364b8d81d2"
 };
 
-// Check if credentials have been replaced with real project credentials
+// Check if credentials are configured
 export const isConfigured = Boolean(
   firebaseConfig.apiKey && 
-  !firebaseConfig.apiKey.includes("DemoDummyKey") &&
-  firebaseConfig.projectId !== "cgaph-ecommerce"
+  firebaseConfig.projectId === "shayan-gay"
 );
 
+// Initialize Firebase
 let app = null;
 let auth = null;
 let db = null;
+let storage = null;
 const googleProvider = new GoogleAuthProvider();
 
 try {
@@ -61,14 +67,24 @@ try {
   }
   auth = getAuth(app);
   db = getFirestore(app);
+  storage = getStorage(app);
+  console.log("Firebase 12.18.0 initialized with project:", firebaseConfig.projectId);
 } catch (error) {
-  console.warn("Firebase initialized in development mode:", error.message);
+  console.warn("Firebase initialization warning:", error.message);
+}
+
+// Global reference for console debugging
+if (typeof window !== 'undefined') {
+  window.__FIREBASE_APP__ = app;
+  window.__FIREBASE_AUTH__ = auth;
+  window.__FIREBASE_DB__ = db;
 }
 
 export { 
   app, 
   auth, 
   db, 
+  storage,
   googleProvider,
   signInWithEmailAndPassword, 
   createUserWithEmailAndPassword, 
@@ -87,5 +103,8 @@ export {
   query, 
   where, 
   orderBy, 
-  serverTimestamp 
+  serverTimestamp,
+  storageRef,
+  uploadBytes,
+  getDownloadURL
 };
